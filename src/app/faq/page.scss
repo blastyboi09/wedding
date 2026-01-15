@@ -131,12 +131,18 @@
     max-height: 0;
     overflow: hidden;
     padding: 0 24px;
+    transition: max-height 0.3s ease, padding 0.3s ease;
 
     p {
       font-family: $font-body;
       font-size: 1rem;
       line-height: 1.8;
       color: $color-gray;
+    }
+
+    &--open {
+      max-height: 500px;
+      padding: 0 24px 24px;
     }
   }
 

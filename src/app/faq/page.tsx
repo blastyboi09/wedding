@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import './page.scss';
@@ -51,15 +51,6 @@ const faqs = [
 export default function FAQ() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('active')),
-            { threshold: 0.1 }
-        );
-        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
-
     const toggleAccordion = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
@@ -86,7 +77,7 @@ export default function FAQ() {
                             return (
                                 <div
                                     key={index}
-                                    className={`faq__item reveal ${isOpen ? 'faq__item--open' : ''}`}
+                                    className={`faq__item ${isOpen ? 'faq__item--open' : ''}`}
                                 >
                                     <button
                                         className="faq__question"
@@ -99,17 +90,8 @@ export default function FAQ() {
                                             {isOpen ? '−' : '+'}
                                         </span>
                                     </button>
-                                    <div
-                                        className="faq__answer"
-                                        style={{
-                                            maxHeight: isOpen ? '500px' : '0px',
-                                            overflow: 'hidden',
-                                            transition: 'max-height 0.4s ease',
-                                        }}
-                                    >
-                                        <div style={{ padding: '0 24px 24px' }}>
-                                            <p>{faq.answer}</p>
-                                        </div>
+                                    <div className={`faq__answer ${isOpen ? 'faq__answer--open' : ''}`}>
+                                        <p>{faq.answer}</p>
                                     </div>
                                 </div>
                             );
@@ -120,7 +102,7 @@ export default function FAQ() {
 
             <section className="faq__contact">
                 <div className="faq__contact-container">
-                    <div className="faq__contact-content reveal">
+                    <div className="faq__contact-content">
                         <h3>Still Have Questions?</h3>
                         <p>Feel free to reach out to us directly.</p>
                         <a href="mailto:jddizon30@gmail.com" className="faq__contact-email">

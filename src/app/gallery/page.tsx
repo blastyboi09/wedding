@@ -23,18 +23,9 @@ export default function Gallery() {
     const [activeCategory, setActiveCategory] = useState('All');
     const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null);
 
-    const filteredPhotos = activeCategory === 'All' 
-        ? photos 
+    const filteredPhotos = activeCategory === 'All'
+        ? photos
         : photos.filter(p => p.category === activeCategory);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('active')),
-            { threshold: 0.1 }
-        );
-        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
 
     useEffect(() => {
         document.body.style.overflow = selectedPhoto !== null ? 'hidden' : 'auto';
@@ -56,7 +47,7 @@ export default function Gallery() {
 
             <section className="gallery__content">
                 <div className="gallery__container">
-                    <div className="gallery__filters reveal">
+                    <div className="gallery__filters">
                         {categories.map((cat) => (
                             <button
                                 key={cat}
@@ -69,11 +60,10 @@ export default function Gallery() {
                     </div>
 
                     <div className="gallery__grid">
-                        {filteredPhotos.map((photo, index) => (
-                            <div 
-                                key={photo.id} 
-                                className="gallery__item reveal"
-                                style={{ animationDelay: `${index * 0.1}s` }}
+                        {filteredPhotos.map((photo) => (
+                            <div
+                                key={photo.id}
+                                className="gallery__item"
                                 onClick={() => setSelectedPhoto(photo.id)}
                             >
                                 <div className="gallery__item-inner">
@@ -87,7 +77,7 @@ export default function Gallery() {
                         ))}
                     </div>
 
-                    <div className="gallery__note reveal">
+                    <div className="gallery__note">
                         <p>📷 More photos coming soon after the wedding!</p>
                     </div>
                 </div>
