@@ -1,0 +1,307 @@
+@use '../../styles/variables' as *;
+
+.gifts {
+  &__hero {
+    min-height: 50vh;
+    position: relative;
+    @include flex-center;
+    overflow: hidden;
+  }
+  &__hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, $color-primary 0%, $color-blush 100%);
+  }
+  &__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+  }
+  &__hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 120px 24px 80px;
+  }
+  &__hero-label {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 16px;
+  }
+  &__hero-title {
+    font-family: $font-script;
+    font-size: 5rem;
+    color: white;
+    margin-bottom: 16px;
+    @media (max-width: $breakpoint-sm) { font-size: 3.5rem; }
+  }
+  &__hero-subtitle {
+    font-family: $font-display;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &__intro {
+    padding: 80px 24px;
+    background: $color-bg;
+  }
+  &__intro-container {
+    @include container;
+    max-width: 700px;
+  }
+  &__intro-content {
+    text-align: center;
+
+    h2 {
+      font-family: $font-script;
+      font-size: 2.5rem;
+      color: $color-primary;
+      margin-bottom: 24px;
+    }
+
+    p {
+      font-family: $font-body;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: $color-gray;
+      margin-bottom: 16px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__content {
+    padding: 0 24px 100px;
+    background: $color-bg;
+  }
+  &__container {
+    @include container;
+    max-width: 900px;
+  }
+
+  &__tabs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  &__tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 20px;
+    background: white;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    cursor: pointer;
+    min-width: 100px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      border-color: $color-primary;
+    }
+
+    &.active {
+      background: $color-primary;
+      border-color: $color-primary;
+
+      .gifts__tab-emoji {
+        transform: scale(1.1);
+      }
+
+      .gifts__tab-title {
+        color: white;
+      }
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      min-width: 80px;
+      padding: 12px 16px;
+    }
+  }
+  &__tab-emoji {
+    font-size: 1.8rem;
+  }
+  &__tab-title {
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $color-dark;
+    text-align: center;
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 0.65rem;
+    }
+  }
+
+  &__panel {
+    background: white;
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+
+    @media (max-width: $breakpoint-sm) {
+      padding: 32px 24px;
+    }
+  }
+  &__panel-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  &__panel-emoji {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 16px;
+  }
+  &__panel-title {
+    font-family: $font-display;
+    font-size: 2rem;
+    color: $color-dark;
+    margin-bottom: 8px;
+  }
+  &__panel-subtitle {
+    font-family: $font-body;
+    font-size: 1rem;
+    color: $color-primary;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  &__panel-description {
+    font-family: $font-body;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: $color-gray;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: $color-bg;
+    border-radius: 16px;
+
+    &:hover {
+      background: $color-bg-alt;
+    }
+  }
+  &__item-emoji {
+    font-size: 2rem;
+    min-width: 50px;
+    text-align: center;
+  }
+  &__item-info {
+    h4 {
+      font-family: $font-display;
+      font-size: 1rem;
+      font-weight: 600;
+      color: $color-dark;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-family: $font-body;
+      font-size: 0.85rem;
+      color: $color-gray;
+    }
+  }
+
+  &__payment {
+    background: linear-gradient(135deg, $color-blush-light 0%, $color-lavender-light 100%);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+
+    h4 {
+      font-family: $font-display;
+      font-size: 1.3rem;
+      color: $color-dark;
+      margin-bottom: 20px;
+    }
+  }
+  &__payment-methods {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  &__payment-method {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 24px;
+    background: white;
+    border-radius: 12px;
+    min-width: 180px;
+  }
+  &__payment-label {
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: $color-primary;
+  }
+  &__payment-detail {
+    font-family: $font-body;
+    font-size: 0.95rem;
+    color: $color-dark;
+  }
+
+  &__note {
+    padding: 80px 24px;
+    background: linear-gradient(180deg, $color-bg 0%, $color-bg-alt 100%);
+  }
+  &__note-container {
+    @include container;
+    max-width: 600px;
+  }
+  &__note-content {
+    text-align: center;
+  }
+  &__note-emoji {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 16px;
+  }
+  &__note-content h3 {
+    font-family: $font-script;
+    font-size: 2.5rem;
+    color: $color-primary;
+    margin-bottom: 20px;
+  }
+  &__note-content p {
+    font-family: $font-body;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: $color-gray;
+    margin-bottom: 16px;
+  }
+  &__note-signature {
+    font-family: $font-script;
+    font-size: 1.5rem;
+    color: $color-primary;
+    margin-top: 24px;
+  }
+}

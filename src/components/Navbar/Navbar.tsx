@@ -30,6 +30,7 @@ const Navbar: React.FC = () => {
         { href: '/event-details', label: 'Details' },
         { href: '/gallery', label: 'Gallery' },
         { href: '/faq', label: 'FAQ' },
+        { href: '/recommended-gifts', label: 'Recommended Gifts' },
     ];
 
     return (
