@@ -54,9 +54,9 @@ export default function EventDetails() {
                     <div className="details__event-card reveal">
                         <div className="details__event-icon">💒</div>
                         <span className="details__event-label">The Ceremony</span>
-                        <h2 className="details__event-title">Maple Events by Solange</h2>
+                        <h2 className="details__event-title">Holy Matrimony</h2>
                         <div className="details__event-time">3:00 PM</div>
-                        <p className="details__event-venue">Church Ceremony</p>
+                        <p className="details__event-venue">Maple Events by Solange - Garden Area</p>
                         <p className="details__event-address">Esperanza Ilaya, Alfonso, Cavite</p>
                         <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="details__event-map">
                             📍 View on Map
@@ -78,8 +78,8 @@ export default function EventDetails() {
                         <span className="details__event-label">The Celebration</span>
                         <h2 className="details__event-title">Reception Party</h2>
                         <div className="details__event-time">5:00 PM</div>
-                        <p className="details__event-venue">Dinner & Dancing</p>
-                        <p className="details__event-address">Same Venue</p>
+                        <p className="details__event-venue">Maple Events by Solange - Reception Area</p>
+                        <p className="details__event-address">Esperanza Ilaya, Alfonso, Cavite</p>
                         <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="details__event-map">
                             📍 View on Map
                         </a>
