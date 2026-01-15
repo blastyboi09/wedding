@@ -18,7 +18,7 @@
     .navbar__logo { color: $color-dark; }
     .navbar__link {
       color: $color-dark;
-      &:hover, &.active { color: $color-primary; }
+      &:hover, &.active { color: $color-dark; }
     }
     .navbar__rsvp {
       background: $color-primary;
@@ -79,12 +79,12 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: $color-accent;
+      background: $color-dark;
       transition: width $transition-base;
     }
 
     &:hover, &.active {
-      color: $color-accent;
+      color: $color-dark;
       &::after { width: 100%; }
     }
   }
