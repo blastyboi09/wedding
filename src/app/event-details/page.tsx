@@ -54,7 +54,7 @@ export default function EventDetails() {
                     <div className="details__event-card reveal">
                         <div className="details__event-icon">💒</div>
                         <span className="details__event-label">The Ceremony</span>
-                        <h2 className="details__event-title">Holy Matrimony</h2>
+                        <h2 className="details__event-title">Maple Events by Solange</h2>
                         <div className="details__event-time">3:00 PM</div>
                         <p className="details__event-venue">Church Ceremony</p>
                         <p className="details__event-address">Esperanza Ilaya, Alfonso, Cavite</p>
