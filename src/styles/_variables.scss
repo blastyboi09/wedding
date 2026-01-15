@@ -1,40 +1,51 @@
-// Modern Elegant Wedding Theme Variables
+// Pastel Elegant Wedding Theme Variables
 
-// Primary Colors
-$color-primary: #8B7355;
-$color-primary-light: #A89078;
-$color-primary-dark: #6D5A45;
+// Primary Colors - Soft Rose
+$color-primary: #E8A0B4;
+$color-primary-light: #F2C4D0;
+$color-primary-dark: #D4849A;
 
-// Accent Colors  
-$color-accent: #C4A77D;
-$color-accent-light: #D4BC9A;
-$color-accent-dark: #9E8660;
+// Accent Colors - Soft Gold/Peach
+$color-accent: #F5D5C8;
+$color-accent-light: #FAE8E0;
+$color-accent-dark: #E8BBA8;
 
 // Neutral Colors
-$color-dark: #2C2C2C;
-$color-dark-soft: #3D3D3D;
-$color-gray: #6B6B6B;
-$color-gray-light: #9A9A9A;
+$color-dark: #4A4A4A;
+$color-dark-soft: #5D5D5D;
+$color-gray: #8A8A8A;
+$color-gray-light: #B5B5B5;
 
 // Background Colors
-$color-bg: #FAF8F5;
-$color-bg-alt: #F5F1EC;
-$color-bg-dark: #1A1A1A;
+$color-bg: #FFFBF9;
+$color-bg-alt: #FFF5F5;
+$color-bg-dark: #2D2D2D;
 
-// Feature Colors
-$color-sage: #9CAF88;
-$color-sage-light: #C5D4B8;
-$color-blush: #E8D5D3;
-$color-blush-light: #F5ECEA;
-$color-lavender: #C9C0D3;
-$color-lavender-light: #E5E0EB;
-$color-cream: #FDF8F5;
+// Feature Colors - Pastel Palette
+$color-sage: #B8D4BE;
+$color-sage-light: #D4E8D8;
+$color-blush: #FFD9DC;
+$color-blush-light: #FFECED;
+$color-lavender: #D4C8E8;
+$color-lavender-light: #EBE5F5;
+$color-cream: #FFFEF9;
+$color-mint: #C2E8E0;
+$color-mint-light: #E0F5F0;
+$color-sky: #C8DDF5;
+$color-sky-light: #E5F0FA;
+$color-peach: #FFE0D0;
+$color-peach-light: #FFF0E8;
+$color-lilac: #E0D0F0;
+$color-lilac-light: #F0E8F8;
+$color-butter: #FFF5D6;
+$color-butter-light: #FFFAE8;
+$color-gold: #F0E0B8;
 
 // Glassmorphism
-$glass-bg: rgba(255, 255, 255, 0.1);
-$glass-bg-light: rgba(255, 255, 255, 0.85);
-$glass-border: rgba(255, 255, 255, 0.2);
-$glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+$glass-bg: rgba(255, 255, 255, 0.25);
+$glass-bg-light: rgba(255, 255, 255, 0.9);
+$glass-border: rgba(255, 255, 255, 0.4);
+$glass-shadow: 0 8px 32px rgba(232, 160, 180, 0.15);
 
 // Typography
 $font-display: 'Cormorant Garamond', serif;
@@ -122,7 +133,7 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba($color-primary, 0.4);
+    box-shadow: 0 15px 35px rgba($color-primary, 0.35);
   }
 }
 
@@ -133,7 +144,7 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   gap: 10px;
   padding: 16px 36px;
   background: transparent;
-  color: $color-primary;
+  color: $color-primary-dark;
   font-family: $font-body;
   font-size: 0.85rem;
   font-weight: 500;
@@ -149,4 +160,25 @@ $transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     color: white;
     transform: translateY(-3px);
   }
+}
+
+// Pastel Gradient Mixins
+@mixin gradient-blush {
+  background: linear-gradient(135deg, $color-blush 0%, $color-lavender 100%);
+}
+
+@mixin gradient-mint {
+  background: linear-gradient(135deg, $color-mint 0%, $color-sky 100%);
+}
+
+@mixin gradient-sunset {
+  background: linear-gradient(135deg, $color-peach 0%, $color-lilac 100%);
+}
+
+@mixin gradient-dreamy {
+  background: linear-gradient(135deg, $color-lavender 0%, $color-blush 50%, $color-peach 100%);
+}
+
+@mixin gradient-soft {
+  background: linear-gradient(180deg, $color-bg 0%, $color-blush-light 100%);
 }
