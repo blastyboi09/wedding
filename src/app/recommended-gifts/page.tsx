@@ -75,7 +75,7 @@ const giftCategories = [
         items: [
             { name: 'House & Lot', emoji: '🏡', note: 'We promise to invite you over!' },
             { name: 'Car', emoji: '🚗', note: 'For family road trips' },
-            { name: 'Land Title', emoji: '📜', note: 'Anywhere in Cavite is fine 😂' },
+            { name: 'Land Title', emoji: '📜', note: 'Anywhere in Taguig is fine 😂' },
             { name: 'Investment Fund', emoji: '📈', note: 'Help us retire early lol' },
             { name: 'Lifetime Supply of Milk Tea', emoji: '🧋', note: 'In memory of our first date' },
         ]
