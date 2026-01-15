@@ -1,310 +1,679 @@
-@import '../styles/variables';
+@use '../styles/variables' as *;
+
+// Reveal animation
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 // Hero Section
 .hero {
   min-height: 100vh;
-  @include flex-center;
-  flex-direction: column;
   position: relative;
-  background: linear-gradient(135deg, $color-sage-light 0%, $color-blush-light 50%, $color-lavender-light 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
+  background: linear-gradient(135deg, #2C3E50 0%, #3498db 50%, #8E44AD 100%);
 
-  // Add a subtle pattern overlay
-  &::before {
-    content: '';
+  &__parallax {
     position: absolute;
-    top: 0;
+    top: -10%;
     left: 0;
     right: 0;
-    bottom: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239CAF88' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    pointer-events: none;
+    bottom: -10%;
+    z-index: 0;
+  }
+
+  &__bg-pattern {
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba($color-accent, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba($color-sage, 0.2) 0%, transparent 50%);
   }
 
   &__overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(ellipse at center, transparent 0%, rgba($color-cream, 0.3) 100%);
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.4) 100%);
+    z-index: 1;
   }
 
   &__content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     text-align: center;
-    padding: 0 20px;
+    padding: 0 24px;
+    max-width: 900px;
   }
 
-  &__subtitle {
-    font-family: $font-sans;
-    font-size: 0.9rem;
-    text-transform: uppercase;
+  &__badge {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 500;
     letter-spacing: 4px;
-    color: $color-brown-light;
-    margin-bottom: 15px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 12px 28px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    margin-bottom: 40px;
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.8s ease forwards;
   }
 
   &__title {
-    font-family: $font-script;
-    font-size: 5rem;
-    color: $color-brown;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
-
-    @media (max-width: $breakpoint-md) {
-      font-size: 3.5rem;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
+    animation: fadeInUp 0.8s ease 0.2s forwards;
+    opacity: 0;
 
     @media (max-width: $breakpoint-sm) {
-      font-size: 2.8rem;
+      flex-direction: column;
+      gap: 8px;
     }
+  }
+
+  &__name {
+    font-family: $font-display;
+    font-size: 7rem;
+    font-weight: 300;
+    color: white;
+    letter-spacing: 8px;
+
+    @media (max-width: $breakpoint-md) { font-size: 5rem; }
+    @media (max-width: $breakpoint-sm) { font-size: 3.5rem; letter-spacing: 4px; }
+  }
+
+  &__ampersand {
+    font-family: $font-script;
+    font-size: 5rem;
+    color: $color-accent;
+
+    @media (max-width: $breakpoint-md) { font-size: 3.5rem; }
+    @media (max-width: $breakpoint-sm) { font-size: 2.5rem; }
   }
 
   &__divider {
-    @include floral-divider;
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 32px 0;
+    animation: fadeInUp 0.8s ease 0.3s forwards;
+    opacity: 0;
+
     span {
-      font-size: 1.5rem;
-      color: $color-gold;
+      width: 100px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
     }
+
+    svg { color: $color-accent; }
   }
 
   &__date {
-    font-family: $font-serif;
-    font-size: 1.8rem;
-    color: $color-brown;
-    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 8px;
+    animation: fadeInUp 0.8s ease 0.4s forwards;
+    opacity: 0;
+  }
 
-    @media (max-width: $breakpoint-sm) {
-      font-size: 1.4rem;
-    }
+  &__date-day {
+    font-family: $font-body;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &__date-full {
+    font-family: $font-display;
+    font-size: 2rem;
+    color: white;
+    letter-spacing: 4px;
+
+    @media (max-width: $breakpoint-sm) { font-size: 1.5rem; }
   }
 
   &__venue {
-    font-family: $font-sans;
-    font-size: 1rem;
-    color: $color-brown-light;
+    font-family: $font-body;
+    font-size: 0.9rem;
     letter-spacing: 2px;
-    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease 0.5s forwards;
+    opacity: 0;
+  }
+
+  &__countdown {
+    margin-bottom: 48px;
+    animation: fadeInUp 0.8s ease 0.6s forwards;
+    opacity: 0;
   }
 
   &__cta {
-    @include button-primary;
-    margin-top: 20px;
-    display: inline-block;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease 0.7s forwards;
+    opacity: 0;
   }
 
-  &__floral {
+  &__button {
+    font-family: $font-body;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 18px 40px;
+    border-radius: 50px;
+    transition: all $transition-base;
+    cursor: pointer;
+
+    &--primary {
+      background: white;
+      color: $color-dark;
+      border: 2px solid white;
+
+      &:hover {
+        background: transparent;
+        color: white;
+        transform: translateY(-3px);
+      }
+    }
+
+    &--outline {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+
+      &:hover {
+        border-color: white;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-3px);
+      }
+    }
+  }
+
+  &__scroll-indicator {
     position: absolute;
-    font-size: 6rem;
-    opacity: 0.15;
-    
-    &--left {
-      bottom: 10%;
-      left: 5%;
-      transform: rotate(-15deg);
-    }
-    
-    &--right {
-      top: 15%;
-      right: 5%;
-      transform: rotate(15deg);
-    }
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+    animation: fadeInUp 0.8s ease 1s forwards;
+    opacity: 0;
 
-    @media (max-width: $breakpoint-md) {
-      display: none;
+    span {
+      font-family: $font-body;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
     }
   }
+
+  &__scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent);
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: white;
+      animation: scrollLine 1.5s ease-in-out infinite;
+    }
+  }
+
+  &__float {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    z-index: 1;
+
+    &--1 {
+      width: 400px;
+      height: 400px;
+      background: $color-accent;
+      top: -100px;
+      right: -100px;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    &--2 {
+      width: 300px;
+      height: 300px;
+      background: $color-sage;
+      bottom: -50px;
+      left: -50px;
+      animation: float 10s ease-in-out infinite reverse;
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollLine {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(50px); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
 }
 
 // Welcome Section
 .welcome {
   @include section-padding;
-  background: $color-cream;
+  background: $color-bg;
 
-  &__container {
-    @include container;
-    max-width: 800px;
+  &__container { @include container-narrow; }
+
+  &__content {
     text-align: center;
+    padding: 60px;
+    background: white;
+    border-radius: 32px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+
+    @media (max-width: $breakpoint-sm) { padding: 40px 24px; }
+  }
+
+  &__label {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: 16px;
   }
 
   &__title {
-    @include heading-serif;
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+    font-family: $font-display;
+    font-size: 3rem;
+    color: $color-dark;
+    margin-bottom: 24px;
 
-    @media (max-width: $breakpoint-sm) {
-      font-size: 1.8rem;
-    }
+    @media (max-width: $breakpoint-sm) { font-size: 2rem; }
   }
 
   &__divider {
-    @include floral-divider;
-    
-    span {
-      font-size: 1.5rem;
-      color: $color-sage;
-    }
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, $color-accent, $color-primary);
+    margin: 0 auto 32px;
   }
 
   &__text {
-    @include body-text;
-    font-size: 1.1rem;
+    font-family: $font-body;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: $color-gray;
     margin-bottom: 20px;
-    color: $color-brown-light;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-    @media (max-width: $breakpoint-sm) {
+  &__signature {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    span:first-child {
+      font-family: $font-display;
       font-size: 1rem;
+      font-style: italic;
+      color: $color-gray;
     }
   }
 
-  &__link {
-    font-family: $font-sans;
-    font-size: 0.9rem;
-    color: $color-sage;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: inline-block;
-    margin-top: 10px;
-    transition: all 0.3s ease;
-
-    &:hover {
-      color: $color-sage-dark;
-      transform: translateX(5px);
-    }
+  &__signature-names {
+    font-family: $font-script;
+    font-size: 2.5rem;
+    color: $color-primary;
   }
 }
 
-// Quick Info Section
-.quick-info {
+// Events Section
+.events {
   @include section-padding;
-  background: linear-gradient(180deg, $color-cream 0%, $color-blush-light 100%);
+  background: linear-gradient(180deg, $color-bg 0%, $color-bg-alt 100%);
 
-  &__container {
-    @include container;
+  &__container { @include container; }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  &__label {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: 3rem;
+    color: $color-dark;
+
+    @media (max-width: $breakpoint-sm) { font-size: 2rem; }
+  }
+
+  &__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-bottom: 40px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    align-items: center;
 
-    @media (max-width: $breakpoint-md) {
+    @media (max-width: $breakpoint-lg) {
       grid-template-columns: 1fr;
-      max-width: 400px;
+      max-width: 500px;
+      margin: 0 auto;
     }
   }
 
   &__card {
-    @include card-style;
+    background: white;
+    border-radius: 24px;
+    padding: 48px 32px;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    transition: all $transition-smooth;
 
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 30px rgba($color-brown, 0.12);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+
+    &--featured {
+      background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+      color: white;
+      padding: 64px 32px;
+      position: relative;
+
+      @media (max-width: $breakpoint-lg) { order: -1; }
     }
   }
 
-  &__icon {
-    font-size: 3rem;
-    display: block;
-    margin-bottom: 15px;
-  }
-
-  &__title {
-    @include heading-serif;
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-  }
-
-  &__text {
-    font-family: $font-sans;
-    font-size: 1.2rem;
+  &__card-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: $color-accent;
+    color: white;
+    font-family: $font-body;
+    font-size: 0.7rem;
     font-weight: 600;
-    color: $color-sage-dark;
-    margin-bottom: 5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 20px;
   }
 
-  &__detail {
-    font-family: $font-sans;
-    font-size: 0.9rem;
-    color: $color-brown-light;
+  &__card-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+
+  &__card-label {
+    font-family: $font-body;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: $color-accent;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  &__card-title {
+    font-family: $font-display;
+    font-size: 1.5rem;
+    color: $color-dark;
+    margin-bottom: 16px;
+  }
+
+  &__card-time {
+    font-family: $font-display;
+    font-size: 2rem;
+    font-weight: 500;
+    color: $color-primary;
+    margin-bottom: 16px;
+  }
+
+  &__card-venue {
+    font-family: $font-body;
+    font-size: 0.95rem;
+    color: $color-dark;
+    margin-bottom: 4px;
+  }
+
+  &__card-address {
+    font-family: $font-body;
+    font-size: 0.85rem;
+    color: $color-gray;
+  }
+
+  &__card-date {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 24px;
+  }
+
+  &__card-date-month {
+    font-family: $font-body;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  &__card-date-day {
+    font-family: $font-display;
+    font-size: 5rem;
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  &__card-date-year {
+    font-family: $font-body;
+    font-size: 1rem;
+    letter-spacing: 6px;
+  }
+
+  &__card-hearts svg {
+    width: 32px;
+    height: 32px;
+    color: $color-accent;
   }
 
   &__cta {
     text-align: center;
+    margin-top: 60px;
   }
 
   &__button {
-    @include button-outline;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: $font-body;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $color-primary;
+    padding: 16px 0;
+    border-bottom: 2px solid $color-primary;
+    transition: all $transition-base;
+
+    svg { width: 20px; height: 20px; transition: transform $transition-base; }
+
+    &:hover {
+      color: $color-primary-dark;
+      svg { transform: translateX(5px); }
+    }
   }
 }
 
-// RSVP Banner
-.rsvp-banner {
-  @include section-padding;
-  background: $color-sage;
+// Quote Section
+.quote-section {
   position: relative;
+  min-height: 60vh;
+  @include flex-center;
   overflow: hidden;
 
-  &::before {
-    content: '';
+  &__parallax {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    pointer-events: none;
+    inset: 0;
+    background: linear-gradient(135deg, $color-sage 0%, $color-primary 100%);
+    background-attachment: fixed;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
   }
 
   &__content {
+    position: relative;
+    z-index: 1;
     @include container;
+    padding: 80px 24px;
+  }
+
+  &__quote {
     text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+
+    p {
+      font-family: $font-display;
+      font-size: 2.5rem;
+      font-weight: 300;
+      font-style: italic;
+      color: white;
+      line-height: 1.5;
+      margin-bottom: 24px;
+
+      @media (max-width: $breakpoint-md) { font-size: 1.8rem; }
+      @media (max-width: $breakpoint-sm) { font-size: 1.4rem; }
+    }
+
+    cite {
+      font-family: $font-body;
+      font-size: 0.9rem;
+      font-style: normal;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+}
+
+// RSVP Section
+.rsvp-section {
+  @include section-padding;
+  background: $color-bg;
+  position: relative;
+  overflow: hidden;
+
+  &__container {
+    @include container;
     position: relative;
     z-index: 1;
   }
 
-  &__title {
-    font-family: $font-script;
-    font-size: 3rem;
-    color: white;
-    margin-bottom: 15px;
+  &__content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
 
-    @media (max-width: $breakpoint-sm) {
-      font-size: 2rem;
-    }
+  &__label {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: 3rem;
+    color: $color-dark;
+    margin-bottom: 24px;
+
+    @media (max-width: $breakpoint-sm) { font-size: 2rem; }
   }
 
   &__text {
-    font-family: $font-sans;
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 30px;
+    font-family: $font-body;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: $color-gray;
+    margin-bottom: 40px;
   }
 
-  &__button {
-    background: white;
-    color: $color-sage-dark;
-    padding: 16px 40px;
-    border: none;
-    border-radius: 30px;
-    font-family: $font-sans;
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-block;
+  &__button { @include button-primary; }
 
-    &:hover {
-      background: $color-cream;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
+  &__bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: $font-display;
+    font-size: 20vw;
+    font-weight: 600;
+    color: $color-primary;
+    opacity: 0.03;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 0;
   }
 }

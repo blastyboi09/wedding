@@ -1,296 +1,351 @@
-@import '../../styles/variables';
+@use '../../styles/variables' as *;
 
-.our-story {
-    // Hero Section
-    &__hero {
-        min-height: 50vh;
-        @include flex-center;
-        background: linear-gradient(135deg, $color-lavender-light 0%, $color-blush-light 50%, $color-sage-light 100%);
-        position: relative;
-        padding-top: 80px;
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  &.active { opacity: 1; transform: translateY(0); }
+}
+
+.story {
+  &__hero {
+    min-height: 70vh;
+    position: relative;
+    @include flex-center;
+    overflow: hidden;
+  }
+
+  &__hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, $color-lavender 0%, $color-blush 50%, $color-sage 100%);
+  }
+
+  &__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  &__hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 120px 24px 80px;
+  }
+
+  &__hero-label {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+  }
+
+  &__hero-title {
+    font-family: $font-script;
+    font-size: 5rem;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 2px 4px 20px rgba(0, 0, 0, 0.2);
+
+    @media (max-width: $breakpoint-md) { font-size: 3.5rem; }
+    @media (max-width: $breakpoint-sm) { font-size: 2.5rem; }
+  }
+
+  &__hero-subtitle {
+    font-family: $font-display;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.9);
+
+    @media (max-width: $breakpoint-sm) { font-size: 1rem; }
+  }
+
+  // Intro
+  &__intro {
+    @include section-padding;
+    background: $color-bg;
+  }
+
+  &__intro-container {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+
+    @media (max-width: $breakpoint-lg) {
+      grid-template-columns: 1fr;
+      gap: 60px;
+      max-width: 600px;
+    }
+  }
+
+  &__intro-image {
+    position: relative;
+  }
+
+  &__placeholder {
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, $color-blush-light, $color-lavender-light);
+    border-radius: 24px;
+    @include flex-center;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+
+    span { font-size: 4rem; }
+    p { font-family: $font-body; font-size: 0.9rem; color: $color-gray; }
+  }
+
+  &__intro-content {
+    @media (max-width: $breakpoint-lg) { text-align: center; }
+  }
+
+  &__intro-label {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: 16px;
+  }
+
+  &__intro-title {
+    font-family: $font-display;
+    font-size: 2.8rem;
+    color: $color-dark;
+    margin-bottom: 24px;
+
+    @media (max-width: $breakpoint-sm) { font-size: 2rem; }
+  }
+
+  &__intro-text {
+    font-family: $font-body;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: $color-gray;
+    margin-bottom: 20px;
+  }
+
+  &__intro-signature {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @media (max-width: $breakpoint-lg) { align-items: center; }
+
+    span:first-child {
+      font-family: $font-display;
+      font-size: 1rem;
+      font-style: italic;
+      color: $color-gray;
+    }
+  }
+
+  &__intro-names {
+    font-family: $font-script;
+    font-size: 2.5rem;
+    color: $color-primary;
+  }
+
+  // Timeline
+  &__timeline {
+    @include section-padding;
+    background: linear-gradient(180deg, $color-bg 0%, $color-bg-alt 100%);
+  }
+
+  &__timeline-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  &__timeline-label {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: 16px;
+  }
+
+  &__timeline-title {
+    font-family: $font-display;
+    font-size: 3rem;
+    color: $color-dark;
+
+    @media (max-width: $breakpoint-sm) { font-size: 2rem; }
+  }
+
+  &__timeline-container {
+    @include container;
+    max-width: 1000px;
+    position: relative;
+    padding: 40px 0;
+  }
+
+  &__timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, transparent, $color-accent, $color-primary, $color-accent, transparent);
+    transform: translateX(-50%);
+
+    @media (max-width: $breakpoint-md) { left: 40px; }
+  }
+
+  &__timeline-item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 60px;
+
+    &:last-child { margin-bottom: 0; }
+
+    &--left {
+      justify-content: flex-start;
+      padding-right: calc(50% + 60px);
+
+      .story__timeline-dot {
+        right: calc(50% - 30px);
+        left: auto;
+      }
+
+      @media (max-width: $breakpoint-md) {
+        padding-right: 0;
+        padding-left: 100px;
+        .story__timeline-dot { left: 10px; right: auto; }
+      }
     }
 
-    &__hero-content {
-        text-align: center;
-        padding: 0 20px;
+    &--right {
+      justify-content: flex-end;
+      padding-left: calc(50% + 60px);
+
+      .story__timeline-dot {
+        left: calc(50% - 30px);
+        right: auto;
+      }
+
+      @media (max-width: $breakpoint-md) {
+        padding-left: 100px;
+        .story__timeline-dot { left: 10px; }
+      }
+    }
+  }
+
+  &__timeline-dot {
+    position: absolute;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 3px solid $color-accent;
+    border-radius: 50%;
+    @include flex-center;
+    z-index: 1;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+    span {
+      font-family: $font-body;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: $color-primary;
     }
 
-    &__title {
-        font-family: $font-script;
-        font-size: 4rem;
-        color: $color-brown;
-        margin-bottom: 10px;
+    @media (max-width: $breakpoint-md) {
+      width: 50px;
+      height: 50px;
+      span { font-size: 0.65rem; }
+    }
+  }
 
-        @media (max-width: $breakpoint-sm) {
-            font-size: 2.8rem;
-        }
+  &__timeline-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    transition: all $transition-base;
+    width: 100%;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &__timeline-card-title {
+    font-family: $font-display;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: $color-dark;
+    margin-bottom: 12px;
+  }
+
+  &__timeline-card-text {
+    font-family: $font-body;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: $color-gray;
+  }
+
+  // Quote
+  &__quote {
+    position: relative;
+    min-height: 50vh;
+    @include flex-center;
+    overflow: hidden;
+  }
+
+  &__quote-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, $color-primary 0%, $color-sage 100%);
+  }
+
+  &__quote-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  &__quote-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 80px 24px;
+    max-width: 800px;
+
+    blockquote {
+      font-family: $font-display;
+      font-size: 2.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: white;
+      line-height: 1.6;
+      margin-bottom: 24px;
+
+      @media (max-width: $breakpoint-md) { font-size: 1.6rem; }
+      @media (max-width: $breakpoint-sm) { font-size: 1.3rem; }
     }
 
-    &__divider {
-        @include floral-divider;
-
-        span {
-            font-size: 1.5rem;
-            color: $color-gold;
-        }
+    cite {
+      font-family: $font-body;
+      font-size: 0.9rem;
+      font-style: normal;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.8);
     }
-
-    &__subtitle {
-        font-family: $font-serif;
-        font-style: italic;
-        font-size: 1.3rem;
-        color: $color-brown-light;
-
-        @media (max-width: $breakpoint-sm) {
-            font-size: 1rem;
-        }
-    }
-
-    // Introduction Section
-    &__intro {
-        @include section-padding;
-        background: $color-cream;
-    }
-
-    &__intro-container {
-        @include container;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 60px;
-        align-items: center;
-
-        @media (max-width: $breakpoint-md) {
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
-    }
-
-    &__intro-image {
-        position: relative;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            right: 15px;
-            bottom: 15px;
-            border: 3px solid $color-sage-light;
-            border-radius: 8px;
-            z-index: 0;
-        }
-    }
-
-    &__placeholder-image {
-        background: $color-blush-light;
-        border-radius: 8px;
-        aspect-ratio: 4/5;
-        @include flex-center;
-        flex-direction: column;
-        position: relative;
-        z-index: 1;
-
-        span {
-            font-size: 4rem;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-family: $font-sans;
-            color: $color-brown-light;
-            font-size: 0.9rem;
-        }
-    }
-
-    &__intro-text {
-        h2 {
-            @include heading-serif;
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        p {
-            @include body-text;
-            margin-bottom: 15px;
-            color: $color-brown-light;
-        }
-    }
-
-    &__signature {
-        font-family: $font-script;
-        font-size: 1.8rem;
-        color: $color-sage;
-        margin-top: 20px;
-    }
-
-    // Timeline Section
-    &__timeline {
-        @include section-padding;
-        background: linear-gradient(180deg, $color-cream 0%, $color-blush-light 100%);
-    }
-
-    &__timeline-title {
-        @include heading-serif;
-        font-size: 2.5rem;
-        text-align: center;
-        margin-bottom: 10px;
-
-        @media (max-width: $breakpoint-sm) {
-            font-size: 1.8rem;
-        }
-    }
-
-    &__timeline-divider {
-        @include floral-divider;
-        margin-bottom: 50px;
-
-        span {
-            font-size: 1.5rem;
-            color: $color-sage;
-        }
-    }
-
-    &__timeline-container {
-        @include container;
-        max-width: 900px;
-        position: relative;
-        padding: 20px 0;
-    }
-
-    &__timeline-line {
-        position: absolute;
-        left: 50%;
-        top: 0;
-        bottom: 0;
-        width: 3px;
-        background: linear-gradient(180deg, $color-sage-light, $color-gold, $color-sage-light);
-        transform: translateX(-50%);
-
-        @media (max-width: $breakpoint-md) {
-            left: 30px;
-        }
-    }
-
-    &__timeline-item {
-        position: relative;
-        width: 50%;
-        padding: 20px 40px;
-        margin-bottom: 30px;
-
-        &.left {
-            left: 0;
-            text-align: right;
-            padding-right: 60px;
-
-            .our-story__timeline-content {
-                &::after {
-                    right: -8px;
-                    left: auto;
-                }
-            }
-        }
-
-        &.right {
-            left: 50%;
-            text-align: left;
-            padding-left: 60px;
-
-            .our-story__timeline-content {
-                &::after {
-                    left: -8px;
-                }
-            }
-        }
-
-        @media (max-width: $breakpoint-md) {
-            width: 100%;
-            left: 0 !important;
-            text-align: left !important;
-            padding-left: 80px !important;
-            padding-right: 20px !important;
-
-            .our-story__timeline-content::after {
-                left: -8px !important;
-                right: auto !important;
-            }
-        }
-    }
-
-    &__timeline-content {
-        @include card-style;
-        position: relative;
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 30px;
-            width: 16px;
-            height: 16px;
-            background: $color-gold;
-            border: 3px solid white;
-            border-radius: 50%;
-            box-shadow: 0 2px 8px rgba($color-brown, 0.2);
-        }
-    }
-
-    &__timeline-icon {
-        font-size: 2rem;
-        display: block;
-        margin-bottom: 10px;
-    }
-
-    &__timeline-year {
-        font-family: $font-sans;
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: $color-sage;
-        display: block;
-        margin-bottom: 8px;
-    }
-
-    &__timeline-heading {
-        @include heading-serif;
-        font-size: 1.4rem;
-        margin-bottom: 10px;
-    }
-
-    &__timeline-text {
-        @include body-text;
-        font-size: 0.95rem;
-        color: $color-brown-light;
-    }
-
-    // Quote Section
-    &__quote {
-        @include section-padding;
-        background: $color-sage;
-    }
-
-    &__quote-container {
-        @include container;
-        max-width: 800px;
-        text-align: center;
-
-        blockquote {
-            font-family: $font-serif;
-            font-style: italic;
-            font-size: 1.8rem;
-            color: white;
-            line-height: 1.6;
-            margin-bottom: 20px;
-
-            @media (max-width: $breakpoint-sm) {
-                font-size: 1.3rem;
-            }
-        }
-
-        cite {
-            font-family: $font-sans;
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-style: normal;
-        }
-    }
+  }
 }

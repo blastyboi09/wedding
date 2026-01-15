@@ -1,179 +1,176 @@
-@import '../../styles/variables';
+@use '../../styles/variables' as *;
 
 .faq {
-    // Hero Section
-    &__hero {
-        min-height: 35vh;
-        @include flex-center;
-        background: linear-gradient(135deg, $color-blush-light 0%, $color-sage-light 100%);
-        padding-top: 80px;
+  &__hero {
+    min-height: 50vh;
+    position: relative;
+    @include flex-center;
+    overflow: hidden;
+  }
+  &__hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, $color-sage 0%, $color-lavender 100%);
+  }
+  &__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+  }
+  &__hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 120px 24px 80px;
+  }
+  &__hero-label {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 16px;
+  }
+  &__hero-title {
+    font-family: $font-script;
+    font-size: 5rem;
+    color: white;
+    margin-bottom: 16px;
+    @media (max-width: $breakpoint-sm) { font-size: 3.5rem; }
+  }
+  &__hero-subtitle {
+    font-family: $font-display;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &__content {
+    @include section-padding;
+    background: $color-bg;
+  }
+  &__container {
+    @include container;
+    max-width: 800px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__item {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+
+    &:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     }
 
-    &__hero-content {
-        text-align: center;
-        padding: 0 20px;
+    &--open {
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+
+      .faq__question span:first-child {
+        color: $color-primary;
+      }
+
+      .faq__icon {
+        background: $color-primary;
+        color: white;
+      }
+
+      .faq__answer {
+        max-height: 500px;
+        padding: 0 24px 24px;
+      }
+    }
+  }
+
+  &__question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+
+    span:first-child {
+      font-family: $font-display;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: $color-dark;
+      flex: 1;
     }
 
-    &__title {
-        font-family: $font-script;
-        font-size: 4rem;
-        color: $color-brown;
-        margin-bottom: 10px;
-
-        @media (max-width: $breakpoint-sm) {
-            font-size: 2.8rem;
-        }
+    &:hover span:first-child {
+      color: $color-primary;
     }
+  }
 
-    &__divider {
-        @include floral-divider;
+  &__icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
+    background: $color-bg;
+    color: $color-dark;
+    font-size: 1.5rem;
+    font-weight: 300;
+    @include flex-center;
+  }
 
-        span {
-            font-size: 1.5rem;
-            color: $color-gold;
-        }
+  &__answer {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 24px;
+
+    p {
+      font-family: $font-body;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: $color-gray;
     }
+  }
 
-    &__subtitle {
-        font-family: $font-serif;
-        font-size: 1.2rem;
-        color: $color-brown-light;
+  &__contact {
+    padding: 80px 24px;
+    background: linear-gradient(180deg, $color-bg 0%, $color-bg-alt 100%);
+  }
+  &__contact-container {
+    @include container;
+    max-width: 600px;
+  }
+  &__contact-content {
+    text-align: center;
+    h3 {
+      font-family: $font-display;
+      font-size: 2rem;
+      color: $color-dark;
+      margin-bottom: 12px;
     }
-
-    // FAQ Section
-    &__section {
-        @include section-padding;
-        background: $color-cream;
+    p {
+      font-family: $font-body;
+      font-size: 1rem;
+      color: $color-gray;
+      margin-bottom: 20px;
     }
-
-    &__container {
-        @include container;
-        max-width: 800px;
-    }
-
-    &__intro {
-        text-align: center;
-        margin-bottom: 50px;
-
-        h2 {
-            @include heading-serif;
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        p {
-            @include body-text;
-            color: $color-brown-light;
-        }
-    }
-
-    &__list {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    &__item {
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 2px 10px rgba($color-brown, 0.06);
-        transition: box-shadow 0.3s ease;
-
-        &:hover {
-            box-shadow: 0 4px 20px rgba($color-brown, 0.1);
-        }
-
-        &.open {
-            .faq__answer {
-                max-height: 500px;
-                padding: 0 25px 25px;
-            }
-
-            .faq__icon {
-                color: $color-sage;
-            }
-
-            .faq__question {
-                color: $color-sage-dark;
-            }
-        }
-    }
-
-    &__question {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 25px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        text-align: left;
-        gap: 20px;
-
-        span:first-child {
-            font-family: $font-serif;
-            font-size: 1.1rem;
-            color: $color-brown;
-            transition: color 0.3s ease;
-
-            @media (max-width: $breakpoint-sm) {
-                font-size: 1rem;
-            }
-        }
-    }
-
-    &__icon {
-        font-size: 1.5rem;
-        font-weight: 300;
-        color: $color-gold;
-        flex-shrink: 0;
-        transition: color 0.3s ease;
-    }
-
-    &__answer {
-        max-height: 0;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        padding: 0 25px;
-
-        p {
-            @include body-text;
-            font-size: 0.95rem;
-            color: $color-brown-light;
-            padding-top: 5px;
-            border-top: 1px solid $color-blush;
-        }
-    }
-
-    &__contact {
-        text-align: center;
-        margin-top: 60px;
-        padding: 40px;
-        background: linear-gradient(135deg, $color-blush-light, $color-lavender-light);
-        border-radius: 16px;
-
-        h3 {
-            @include heading-serif;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        p {
-            @include body-text;
-            color: $color-brown-light;
-
-            a {
-                color: $color-sage;
-                font-weight: 500;
-                text-decoration: underline;
-                text-underline-offset: 3px;
-
-                &:hover {
-                    color: $color-sage-dark;
-                }
-            }
-        }
-    }
+  }
+  &__contact-email {
+    display: inline-block;
+    font-family: $font-body;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: $color-primary;
+    border-bottom: 2px solid $color-primary;
+    padding-bottom: 4px;
+    &:hover { color: $color-primary-dark; }
+  }
 }

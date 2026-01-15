@@ -1,65 +1,66 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import './page.scss';
 
 const faqs = [
     {
+        question: 'When is the RSVP deadline?',
+        answer: 'Please RSVP by May 21, 2026, one month before the wedding. This helps us finalize arrangements with our vendors.',
+    },
+    {
         question: 'What is the dress code?',
-        answer: 'The dress code is Semi-Formal / Garden Chic. We suggest pastel colors like sage green, blush pink, lavender, or cream. Please avoid wearing white or ivory as these are reserved for the bride.'
+        answer: 'The dress code is Semi-Formal / Garden Chic. We suggest wearing elegant, comfortable attire in sage green, blush pink, lavender, cream, or gold. Please avoid white or ivory.',
     },
     {
         question: 'Can I bring a plus one?',
-        answer: 'Due to venue capacity, we can only accommodate guests who have been formally invited. Please refer to your invitation for the number of seats reserved in your name.'
+        answer: 'Due to venue capacity, we can only accommodate guests listed on the invitation. If you received a plus one, it will be noted on your invitation.',
     },
     {
         question: 'Are children welcome?',
-        answer: 'While we love your little ones, our wedding will be an adults-only celebration. We hope you understand and can use this as an opportunity for a fun night out!'
+        answer: 'While we love your little ones, our wedding will be an adults-only celebration. We hope you understand and can arrange for childcare.',
+    },
+    {
+        question: 'Will the ceremony and reception be at the same location?',
+        answer: 'Yes! Both the ceremony and reception will take place at Esperanza Ilaya, Alfonso, Cavite. No need to travel between venues.',
+    },
+    {
+        question: 'Is there parking available?',
+        answer: 'Yes, complimentary parking is available at the venue. There will be attendants to guide you to the parking area.',
     },
     {
         question: 'What time should I arrive?',
-        answer: 'The ceremony begins at 2:00 PM. We kindly ask guests to arrive by 1:30 PM to allow time for seating. The ceremony will start promptly at 2:00 PM.'
-    },
-    {
-        question: 'Where can I park?',
-        answer: 'Both the church and reception venue have complimentary parking available. There will be signs directing you to the designated parking areas.'
-    },
-    {
-        question: 'Will the ceremony and reception be indoors or outdoors?',
-        answer: 'The ceremony will be held indoors at the church. The reception will be a mix of indoor and outdoor spaces at the venue. In case of inclement weather, we have backup plans in place.'
+        answer: 'We recommend arriving by 2:30 PM. The ceremony will begin promptly at 3:00 PM.',
     },
     {
         question: 'Can I take photos during the ceremony?',
-        answer: 'We kindly ask that you keep your phones and cameras put away during the ceremony. We want everyone to be fully present in the moment! Our professional photographers will capture everything. You are welcome to take photos during the reception.'
+        answer: 'We kindly ask for an unplugged ceremony. Please turn off phones and cameras during the ceremony so everyone can be fully present. Our photographer will capture all the special moments!',
     },
     {
-        question: 'Is there a gift registry?',
-        answer: 'Your presence at our wedding is the greatest gift of all! However, if you wish to honor us with a gift, we have a registry at [Registry Name]. We also welcome monetary gifts for our honeymoon fund.'
+        question: 'Will there be food options for dietary restrictions?',
+        answer: 'Yes! Please let us know about any dietary restrictions when you RSVP, and we will do our best to accommodate your needs.',
     },
     {
-        question: 'When is the RSVP deadline?',
-        answer: 'Please RSVP by February 15, 2026. This helps us finalize our headcount for catering and seating arrangements. You can RSVP directly on this website!'
+        question: 'How do I get to the venue?',
+        answer: 'Directions can be found on the Event Details page. We recommend using Google Maps or Waze. The venue is approximately 2 hours from Metro Manila.',
     },
-    {
-        question: 'What if I have dietary restrictions?',
-        answer: 'Please let us know of any dietary restrictions or allergies when you RSVP. We will do our best to accommodate your needs and ensure there are options available for you.'
-    },
-    {
-        question: 'Will there be transportation provided?',
-        answer: 'We will not be providing transportation between the ceremony and reception venues. They are located approximately 15 minutes apart. If you need help arranging transportation, please contact us.'
-    },
-    {
-        question: 'Who can I contact if I have more questions?',
-        answer: 'If you have any other questions, please feel free to reach out to us at jdandjoi2026@gmail.com or contact our wedding coordinator at [Coordinator Phone].'
-    }
 ];
 
 export default function FAQ() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-    const toggleFAQ = (index: number) => {
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('active')),
+            { threshold: 0.1 }
+        );
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+        return () => observer.disconnect();
+    }, []);
+
+    const toggleAccordion = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
@@ -67,59 +68,64 @@ export default function FAQ() {
         <main className="faq">
             <Navbar />
 
-            {/* Hero Section */}
             <section className="faq__hero">
+                <div className="faq__hero-bg"></div>
+                <div className="faq__hero-overlay"></div>
                 <div className="faq__hero-content">
-                    <h1 className="faq__title">FAQ</h1>
-                    <div className="faq__divider">
-                        <span>❀</span>
-                    </div>
-                    <p className="faq__subtitle">
-                        Frequently Asked Questions
-                    </p>
+                    <span className="faq__hero-label">Got Questions?</span>
+                    <h1 className="faq__hero-title">FAQ</h1>
+                    <p className="faq__hero-subtitle">Everything you need to know about our big day</p>
                 </div>
             </section>
 
-            {/* FAQ Section */}
-            <section className="faq__section">
+            <section className="faq__content">
                 <div className="faq__container">
-                    <div className="faq__intro">
-                        <h2>Got Questions?</h2>
-                        <p>
-                            We&apos;ve compiled answers to some common questions. 
-                            If you can&apos;t find what you&apos;re looking for, feel free to reach out!
-                        </p>
-                    </div>
-
                     <div className="faq__list">
-                        {faqs.map((faq, index) => (
-                            <div 
-                                key={index} 
-                                className={`faq__item ${openIndex === index ? 'open' : ''}`}
-                            >
-                                <button 
-                                    className="faq__question"
-                                    onClick={() => toggleFAQ(index)}
-                                    aria-expanded={openIndex === index}
+                        {faqs.map((faq, index) => {
+                            const isOpen = openIndex === index;
+                            return (
+                                <div
+                                    key={index}
+                                    className={`faq__item reveal ${isOpen ? 'faq__item--open' : ''}`}
                                 >
-                                    <span>{faq.question}</span>
-                                    <span className="faq__icon">
-                                        {openIndex === index ? '−' : '+'}
-                                    </span>
-                                </button>
-                                <div className="faq__answer">
-                                    <p>{faq.answer}</p>
+                                    <button
+                                        className="faq__question"
+                                        onClick={() => toggleAccordion(index)}
+                                        type="button"
+                                        aria-expanded={isOpen}
+                                    >
+                                        <span>{faq.question}</span>
+                                        <span className="faq__icon">
+                                            {isOpen ? '−' : '+'}
+                                        </span>
+                                    </button>
+                                    <div
+                                        className="faq__answer"
+                                        style={{
+                                            maxHeight: isOpen ? '500px' : '0px',
+                                            overflow: 'hidden',
+                                            transition: 'max-height 0.4s ease',
+                                        }}
+                                    >
+                                        <div style={{ padding: '0 24px 24px' }}>
+                                            <p>{faq.answer}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
+                </div>
+            </section>
 
-                    <div className="faq__contact">
-                        <h3>Still have questions?</h3>
-                        <p>
-                            Feel free to reach out to us at{' '}
-                            <a href="mailto:jdandjoi2026@gmail.com">jdandjoi2026@gmail.com</a>
-                        </p>
+            <section className="faq__contact">
+                <div className="faq__contact-container">
+                    <div className="faq__contact-content reveal">
+                        <h3>Still Have Questions?</h3>
+                        <p>Feel free to reach out to us directly.</p>
+                        <a href="mailto:jddizon30@gmail.com" className="faq__contact-email">
+                            jddizon30@gmail.com
+                        </a>
                     </div>
                 </div>
             </section>

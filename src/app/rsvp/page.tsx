@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import './page.scss';
@@ -9,260 +9,181 @@ export default function RSVP() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        phone: '',
-        attendance: '',
+        attending: '',
         guests: '1',
-        guestNames: '',
-        dietaryRestrictions: '',
-        songRequest: '',
-        message: ''
+        dietary: '',
+        message: '',
     });
-
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
 
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('active')),
+            { threshold: 0.1 }
+        );
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+        return () => observer.disconnect();
+    }, []);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setIsSubmitting(true);
-
-        // Simulate form submission
-        // Replace this with your actual form submission logic
-        // You can use Netlify Forms, Google Forms, or your own API
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
-        console.log('Form submitted:', formData);
-        setIsSubmitting(false);
+        // Here you would typically send the data to your backend
+        console.log('RSVP Data:', formData);
         setIsSubmitted(true);
     };
-
-    if (isSubmitted) {
-        return (
-            <main className="rsvp">
-                <Navbar />
-                <section className="rsvp__hero">
-                    <div className="rsvp__hero-content">
-                        <h1 className="rsvp__title">Thank You!</h1>
-                        <div className="rsvp__divider">
-                            <span>💕</span>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="rsvp__success">
-                    <div className="rsvp__success-container">
-                        <span className="rsvp__success-icon">✓</span>
-                        <h2>Your RSVP Has Been Received!</h2>
-                        <p>
-                            Thank you for letting us know, {formData.name}! 
-                            {formData.attendance === 'yes' 
-                                ? " We can't wait to celebrate with you!"
-                                : " We'll miss you, but we appreciate you letting us know."}
-                        </p>
-                        <p className="rsvp__success-note">
-                            A confirmation email has been sent to {formData.email}
-                        </p>
-                    </div>
-                </section>
-
-                <Footer />
-            </main>
-        );
-    }
 
     return (
         <main className="rsvp">
             <Navbar />
 
-            {/* Hero Section */}
             <section className="rsvp__hero">
+                <div className="rsvp__hero-bg"></div>
+                <div className="rsvp__hero-overlay"></div>
                 <div className="rsvp__hero-content">
-                    <h1 className="rsvp__title">RSVP</h1>
-                    <div className="rsvp__divider">
-                        <span>❀</span>
-                    </div>
-                    <p className="rsvp__subtitle">
-                        Please respond by February 15, 2026
-                    </p>
+                    <span className="rsvp__hero-label">We Hope You Can Make It</span>
+                    <h1 className="rsvp__hero-title">RSVP</h1>
+                    <p className="rsvp__hero-subtitle">Please respond by May 21, 2026</p>
                 </div>
             </section>
 
-            {/* RSVP Form Section */}
-            <section className="rsvp__form-section">
-                <div className="rsvp__form-container">
-                    <div className="rsvp__form-intro">
-                        <h2>Will You Join Us?</h2>
-                        <p>
-                            We would be honored to have you celebrate our special day with us. 
-                            Please fill out the form below to let us know if you can make it.
-                        </p>
-                    </div>
-
-                    <form className="rsvp__form" onSubmit={handleSubmit}>
-                        {/* Name */}
-                        <div className="rsvp__field">
-                            <label htmlFor="name">Full Name *</label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                                placeholder="Enter your full name"
-                            />
-                        </div>
-
-                        {/* Email */}
-                        <div className="rsvp__field">
-                            <label htmlFor="email">Email Address *</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                                placeholder="Enter your email"
-                            />
-                        </div>
-
-                        {/* Phone */}
-                        <div className="rsvp__field">
-                            <label htmlFor="phone">Phone Number</label>
-                            <input
-                                type="tel"
-                                id="phone"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
-                                placeholder="Enter your phone number"
-                            />
-                        </div>
-
-                        {/* Attendance */}
-                        <div className="rsvp__field">
-                            <label>Will you be attending? *</label>
-                            <div className="rsvp__radio-group">
-                                <label className="rsvp__radio">
-                                    <input
-                                        type="radio"
-                                        name="attendance"
-                                        value="yes"
-                                        checked={formData.attendance === 'yes'}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <span className="rsvp__radio-custom"></span>
-                                    <span>Joyfully Accept</span>
-                                </label>
-                                <label className="rsvp__radio">
-                                    <input
-                                        type="radio"
-                                        name="attendance"
-                                        value="no"
-                                        checked={formData.attendance === 'no'}
-                                        onChange={handleChange}
-                                    />
-                                    <span className="rsvp__radio-custom"></span>
-                                    <span>Regretfully Decline</span>
-                                </label>
+            <section className="rsvp__content">
+                <div className="rsvp__container">
+                    {!isSubmitted ? (
+                        <form className="rsvp__form reveal" onSubmit={handleSubmit}>
+                            <div className="rsvp__form-header">
+                                <h2>Will You Be Joining Us?</h2>
+                                <p>Kindly fill out the form below to let us know if you&apos;ll be attending our special day.</p>
                             </div>
-                        </div>
 
-                        {/* Conditional fields when attending */}
-                        {formData.attendance === 'yes' && (
-                            <>
-                                {/* Number of Guests */}
-                                <div className="rsvp__field">
-                                    <label htmlFor="guests">Number of Guests *</label>
-                                    <select
-                                        id="guests"
-                                        name="guests"
-                                        value={formData.guests}
-                                        onChange={handleChange}
-                                        required
-                                    >
-                                        <option value="1">1 (Just me)</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5+</option>
-                                    </select>
-                                </div>
+                            <div className="rsvp__form-group">
+                                <label htmlFor="name">Full Name *</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="Enter your full name"
+                                />
+                            </div>
 
-                                {/* Guest Names */}
-                                {parseInt(formData.guests) > 1 && (
-                                    <div className="rsvp__field">
-                                        <label htmlFor="guestNames">Names of Additional Guests</label>
-                                        <textarea
-                                            id="guestNames"
-                                            name="guestNames"
-                                            value={formData.guestNames}
+                            <div className="rsvp__form-group">
+                                <label htmlFor="email">Email Address *</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="Enter your email"
+                                />
+                            </div>
+
+                            <div className="rsvp__form-group">
+                                <label>Will you be attending? *</label>
+                                <div className="rsvp__radio-group">
+                                    <label className={`rsvp__radio ${formData.attending === 'yes' ? 'active' : ''}`}>
+                                        <input
+                                            type="radio"
+                                            name="attending"
+                                            value="yes"
+                                            checked={formData.attending === 'yes'}
                                             onChange={handleChange}
-                                            placeholder="Please list the names of your guests"
-                                            rows={3}
+                                            required
+                                        />
+                                        <span className="rsvp__radio-icon">✓</span>
+                                        <span>Joyfully Accept</span>
+                                    </label>
+                                    <label className={`rsvp__radio ${formData.attending === 'no' ? 'active' : ''}`}>
+                                        <input
+                                            type="radio"
+                                            name="attending"
+                                            value="no"
+                                            checked={formData.attending === 'no'}
+                                            onChange={handleChange}
+                                        />
+                                        <span className="rsvp__radio-icon">✕</span>
+                                        <span>Regretfully Decline</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            {formData.attending === 'yes' && (
+                                <>
+                                    <div className="rsvp__form-group">
+                                        <label htmlFor="guests">Number of Guests</label>
+                                        <select
+                                            id="guests"
+                                            name="guests"
+                                            value={formData.guests}
+                                            onChange={handleChange}
+                                        >
+                                            {[1, 2, 3, 4, 5].map(n => (
+                                                <option key={n} value={n}>{n} {n === 1 ? 'Guest' : 'Guests'}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    <div className="rsvp__form-group">
+                                        <label htmlFor="dietary">Dietary Restrictions</label>
+                                        <input
+                                            type="text"
+                                            id="dietary"
+                                            name="dietary"
+                                            value={formData.dietary}
+                                            onChange={handleChange}
+                                            placeholder="Any allergies or dietary requirements?"
                                         />
                                     </div>
-                                )}
+                                </>
+                            )}
 
-                                {/* Dietary Restrictions */}
-                                <div className="rsvp__field">
-                                    <label htmlFor="dietaryRestrictions">Dietary Restrictions</label>
-                                    <input
-                                        type="text"
-                                        id="dietaryRestrictions"
-                                        name="dietaryRestrictions"
-                                        value={formData.dietaryRestrictions}
-                                        onChange={handleChange}
-                                        placeholder="Any allergies or dietary requirements?"
-                                    />
-                                </div>
+                            <div className="rsvp__form-group">
+                                <label htmlFor="message">Message for the Couple</label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    rows={4}
+                                    placeholder="Share your wishes or any notes..."
+                                ></textarea>
+                            </div>
 
-                                {/* Song Request */}
-                                <div className="rsvp__field">
-                                    <label htmlFor="songRequest">Song Request 🎵</label>
-                                    <input
-                                        type="text"
-                                        id="songRequest"
-                                        name="songRequest"
-                                        value={formData.songRequest}
-                                        onChange={handleChange}
-                                        placeholder="What song will get you on the dance floor?"
-                                    />
-                                </div>
-                            </>
-                        )}
-
-                        {/* Message */}
-                        <div className="rsvp__field">
-                            <label htmlFor="message">Message for the Couple</label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                value={formData.message}
-                                onChange={handleChange}
-                                placeholder="Share your well wishes or any message for us!"
-                                rows={4}
-                            />
+                            <button type="submit" className="rsvp__submit">
+                                Send RSVP
+                            </button>
+                        </form>
+                    ) : (
+                        <div className="rsvp__success reveal active">
+                            <div className="rsvp__success-icon">💝</div>
+                            <h2>Thank You!</h2>
+                            <p>Your RSVP has been received. We can&apos;t wait to celebrate with you!</p>
+                            <div className="rsvp__success-details">
+                                <p><strong>Name:</strong> {formData.name}</p>
+                                <p><strong>Response:</strong> {formData.attending === 'yes' ? 'Attending' : 'Not Attending'}</p>
+                                {formData.attending === 'yes' && <p><strong>Guests:</strong> {formData.guests}</p>}
+                            </div>
                         </div>
+                    )}
+                </div>
+            </section>
 
-                        {/* Submit Button */}
-                        <button 
-                            type="submit" 
-                            className="rsvp__submit"
-                            disabled={isSubmitting}
-                        >
-                            {isSubmitting ? 'Sending...' : 'Submit RSVP'}
-                        </button>
-                    </form>
+            <section className="rsvp__contact">
+                <div className="rsvp__contact-container">
+                    <div className="rsvp__contact-content reveal">
+                        <h3>Questions?</h3>
+                        <p>If you have any questions, feel free to reach out to us.</p>
+                        <a href="mailto:jddizon30@gmail.com" className="rsvp__contact-email">
+                            jddizon30@gmail.com
+                        </a>
+                    </div>
                 </div>
             </section>
 

@@ -1,69 +1,95 @@
-@import '../../styles/variables';
+@use '../../styles/variables' as *;
 
 .countdown {
-  padding: 30px 0;
+  padding: 20px 0;
 
-  &__container {
+  &--light {
+    .countdown__number {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      color: $color-dark;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+    .countdown__label { color: rgba(255, 255, 255, 0.9); }
+    .countdown__separator { color: rgba(255, 255, 255, 0.6); }
+  }
+
+  &--dark {
+    .countdown__number {
+      background: rgba($color-dark, 0.8);
+      backdrop-filter: blur(10px);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .countdown__label { color: $color-gray; }
+    .countdown__separator { color: $color-gray-light; }
+  }
+
+  &__grid {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
+    gap: 16px;
 
-    @media (max-width: $breakpoint-sm) {
-      gap: 10px;
-    }
+    @media (max-width: $breakpoint-sm) { gap: 8px; }
   }
 
   &__item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 12px;
-    padding: 20px 25px;
-    min-width: 90px;
-    box-shadow: 0 4px 15px rgba($color-brown, 0.1);
-
-    @media (max-width: $breakpoint-sm) {
-      padding: 15px 18px;
-      min-width: 70px;
-    }
+    gap: 12px;
   }
 
   &__number {
-    font-family: $font-serif;
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: $color-sage-dark;
-    line-height: 1;
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    @include flex-center;
+
+    span {
+      font-family: $font-display;
+      font-size: 3rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    @media (max-width: $breakpoint-md) {
+      width: 80px;
+      height: 80px;
+      span { font-size: 2.2rem; }
+    }
 
     @media (max-width: $breakpoint-sm) {
-      font-size: 1.8rem;
+      width: 65px;
+      height: 65px;
+      border-radius: 14px;
+      span { font-size: 1.8rem; }
     }
   }
 
   &__label {
-    font-family: $font-sans;
+    font-family: $font-body;
     font-size: 0.75rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: $color-brown-light;
-    margin-top: 8px;
+    letter-spacing: 2px;
 
     @media (max-width: $breakpoint-sm) {
       font-size: 0.65rem;
+      letter-spacing: 1px;
     }
   }
 
   &__separator {
-    font-family: $font-serif;
-    font-size: 2rem;
-    color: $color-gold;
+    font-family: $font-display;
+    font-size: 2.5rem;
     font-weight: 300;
+    margin-top: -30px;
 
     @media (max-width: $breakpoint-sm) {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
+      margin-top: -25px;
     }
   }
 }
