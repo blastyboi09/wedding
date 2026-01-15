@@ -12,7 +12,7 @@ const faqs = [
     },
     {
         question: 'What is the dress code?',
-        answer: 'The dress code is Semi-Formal / Garden Chic. We suggest wearing elegant, comfortable attire in sage green, blush pink, lavender, cream, or gold. Please avoid white or ivory.',
+        answer: 'The dress code is Semi-Formal / Garden Chic. We suggest wearing elegant, comfortable attire in sage green, blush pink, lavender, cream, or any pastel colored attire. Please avoid white or ivory.',
     },
     {
         question: 'Can I bring a plus one?',
