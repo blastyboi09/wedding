@@ -218,7 +218,7 @@
       padding-right: calc(50% + 60px);
 
       .story__timeline-dot {
-        right: calc(50% - 30px);
+        right: calc(50% - 43px);
         left: auto;
       }
 
@@ -234,7 +234,7 @@
       padding-left: calc(50% + 60px);
 
       .story__timeline-dot {
-        left: calc(50% - 30px);
+        left: calc(50% - 43px);
         right: auto;
       }
 
@@ -248,8 +248,8 @@
   &__timeline-dot {
     position: absolute;
     top: 0;
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     background: white;
     border: 3px solid $color-accent;
     border-radius: 50%;

@@ -6,11 +6,31 @@ import Footer from '@/components/Footer';
 import './page.scss';
 
 const timeline = [
-    { year: '2020', title: 'We First Met', description: 'Tell the story of how you first met. Was it at work? Through friends? Share the moment that started it all.' },
-    { year: '2021', title: 'First Date', description: 'Describe your first date. Where did you go? What did you do? What made it memorable?' },
-    { year: '2022', title: 'Made It Official', description: 'When did you become exclusive? Share that special moment when you knew this was something real.' },
-    { year: '2024', title: 'The Proposal', description: 'Tell the story of the proposal. How did JD pop the question? What made it special?' },
-    { year: '2026', title: 'Forever Begins', description: "And now, we're getting married! We can't wait to start this new chapter with all of you." },
+    {
+        year: '10.30.2016',
+        title: 'It All Started',
+        description: 'What began as a playful deal—just a game to see if Joi could even have a boyfriend—turned into something neither of us expected. Little did we know, this "not serious" arrangement would become the greatest love story of our lives.'
+    },
+    {
+        year: '09.09.2016',
+        title: 'First Date',
+        description: 'Our first official date was at Infinitea on Bayani Road (now closed, but forever in our hearts). Over milk tea and conversation, we discovered that maybe this wasn\'t just a game after all.'
+    },
+    {
+        year: '01.30.2017',
+        title: 'Made It Official',
+        description: 'In our classroom, JD knelt down with a promise ring and a box of Pepero. That moment, surrounded by our classmates, we knew this was real. No more games—just us, choosing each other for real this time.'
+    },
+    {
+        year: '10.21.2025',
+        title: 'The Proposal',
+        description: 'After 9 years together, JD planned a surprise proposal on a rooftop in Palawan. Dark clouds threatened to ruin the moment, but as if by divine intervention, the sky cleared to reveal a perfect sunset. As JD knelt once more, this time with an engagement ring, Joi said yes!'
+    },
+    {
+        year: '06.21.2026',
+        title: 'Forever Begins',
+        description: 'From a playful deal in 2016 to saying "I do" in 2026—10 years of laughter, growth, and love. We can\'t wait to start this new chapter and celebrate with all of you!'
+    },
 ];
 
 export default function OurStory() {
