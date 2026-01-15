@@ -1,0 +1,246 @@
+@import '../../styles/variables';
+
+.rsvp {
+    // Hero Section
+    &__hero {
+        min-height: 35vh;
+        @include flex-center;
+        background: linear-gradient(135deg, $color-blush-light 0%, $color-lavender-light 100%);
+        padding-top: 80px;
+    }
+
+    &__hero-content {
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    &__title {
+        font-family: $font-script;
+        font-size: 4rem;
+        color: $color-brown;
+        margin-bottom: 10px;
+
+        @media (max-width: $breakpoint-sm) {
+            font-size: 2.8rem;
+        }
+    }
+
+    &__divider {
+        @include floral-divider;
+
+        span {
+            font-size: 1.5rem;
+            color: $color-gold;
+        }
+    }
+
+    &__subtitle {
+        font-family: $font-serif;
+        font-size: 1.2rem;
+        color: $color-brown-light;
+    }
+
+    // Form Section
+    &__form-section {
+        @include section-padding;
+        background: $color-cream;
+    }
+
+    &__form-container {
+        @include container;
+        max-width: 600px;
+    }
+
+    &__form-intro {
+        text-align: center;
+        margin-bottom: 40px;
+
+        h2 {
+            @include heading-serif;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            @include body-text;
+            color: $color-brown-light;
+        }
+    }
+
+    &__form {
+        @include card-style;
+        padding: 40px;
+
+        @media (max-width: $breakpoint-sm) {
+            padding: 25px 20px;
+        }
+    }
+
+    &__field {
+        margin-bottom: 25px;
+
+        label {
+            display: block;
+            font-family: $font-sans;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: $color-brown;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px 16px;
+            font-family: $font-sans;
+            font-size: 1rem;
+            color: $color-brown;
+            background: $color-cream;
+            border: 2px solid $color-blush;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+
+            &:focus {
+                outline: none;
+                border-color: $color-sage;
+                background: white;
+            }
+
+            &::placeholder {
+                color: $color-brown-light;
+                opacity: 0.6;
+            }
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235C4033' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+    }
+
+    &__radio-group {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    &__radio {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-family: $font-sans;
+        color: $color-brown;
+
+        input {
+            display: none;
+        }
+    }
+
+    &__radio-custom {
+        width: 22px;
+        height: 22px;
+        border: 2px solid $color-blush;
+        border-radius: 50%;
+        position: relative;
+        transition: all 0.3s ease;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 12px;
+            height: 12px;
+            background: $color-sage;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+    }
+
+    &__radio input:checked + &__radio-custom {
+        border-color: $color-sage;
+
+        &::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+
+    &__submit {
+        @include button-primary;
+        width: 100%;
+        padding: 16px;
+        font-size: 1rem;
+        margin-top: 10px;
+
+        &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+    }
+
+    // Success State
+    &__success {
+        @include section-padding;
+        background: $color-cream;
+    }
+
+    &__success-container {
+        @include container;
+        max-width: 600px;
+        @include card-style;
+        text-align: center;
+        padding: 60px 40px;
+
+        @media (max-width: $breakpoint-sm) {
+            padding: 40px 25px;
+        }
+    }
+
+    &__success-icon {
+        width: 80px;
+        height: 80px;
+        background: $color-sage;
+        color: white;
+        font-size: 2.5rem;
+        border-radius: 50%;
+        @include flex-center;
+        margin: 0 auto 25px;
+    }
+
+    &__success-container {
+        h2 {
+            @include heading-serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            @include body-text;
+            color: $color-brown-light;
+            margin-bottom: 10px;
+        }
+    }
+
+    &__success-note {
+        font-size: 0.9rem !important;
+        color: $color-sage !important;
+        margin-top: 20px !important;
+    }
+}

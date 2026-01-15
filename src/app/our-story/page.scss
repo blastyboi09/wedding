@@ -1,0 +1,296 @@
+@import '../../styles/variables';
+
+.our-story {
+    // Hero Section
+    &__hero {
+        min-height: 50vh;
+        @include flex-center;
+        background: linear-gradient(135deg, $color-lavender-light 0%, $color-blush-light 50%, $color-sage-light 100%);
+        position: relative;
+        padding-top: 80px;
+    }
+
+    &__hero-content {
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    &__title {
+        font-family: $font-script;
+        font-size: 4rem;
+        color: $color-brown;
+        margin-bottom: 10px;
+
+        @media (max-width: $breakpoint-sm) {
+            font-size: 2.8rem;
+        }
+    }
+
+    &__divider {
+        @include floral-divider;
+
+        span {
+            font-size: 1.5rem;
+            color: $color-gold;
+        }
+    }
+
+    &__subtitle {
+        font-family: $font-serif;
+        font-style: italic;
+        font-size: 1.3rem;
+        color: $color-brown-light;
+
+        @media (max-width: $breakpoint-sm) {
+            font-size: 1rem;
+        }
+    }
+
+    // Introduction Section
+    &__intro {
+        @include section-padding;
+        background: $color-cream;
+    }
+
+    &__intro-container {
+        @include container;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+
+        @media (max-width: $breakpoint-md) {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+    }
+
+    &__intro-image {
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: 15px;
+            bottom: 15px;
+            border: 3px solid $color-sage-light;
+            border-radius: 8px;
+            z-index: 0;
+        }
+    }
+
+    &__placeholder-image {
+        background: $color-blush-light;
+        border-radius: 8px;
+        aspect-ratio: 4/5;
+        @include flex-center;
+        flex-direction: column;
+        position: relative;
+        z-index: 1;
+
+        span {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-family: $font-sans;
+            color: $color-brown-light;
+            font-size: 0.9rem;
+        }
+    }
+
+    &__intro-text {
+        h2 {
+            @include heading-serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            @include body-text;
+            margin-bottom: 15px;
+            color: $color-brown-light;
+        }
+    }
+
+    &__signature {
+        font-family: $font-script;
+        font-size: 1.8rem;
+        color: $color-sage;
+        margin-top: 20px;
+    }
+
+    // Timeline Section
+    &__timeline {
+        @include section-padding;
+        background: linear-gradient(180deg, $color-cream 0%, $color-blush-light 100%);
+    }
+
+    &__timeline-title {
+        @include heading-serif;
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 10px;
+
+        @media (max-width: $breakpoint-sm) {
+            font-size: 1.8rem;
+        }
+    }
+
+    &__timeline-divider {
+        @include floral-divider;
+        margin-bottom: 50px;
+
+        span {
+            font-size: 1.5rem;
+            color: $color-sage;
+        }
+    }
+
+    &__timeline-container {
+        @include container;
+        max-width: 900px;
+        position: relative;
+        padding: 20px 0;
+    }
+
+    &__timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(180deg, $color-sage-light, $color-gold, $color-sage-light);
+        transform: translateX(-50%);
+
+        @media (max-width: $breakpoint-md) {
+            left: 30px;
+        }
+    }
+
+    &__timeline-item {
+        position: relative;
+        width: 50%;
+        padding: 20px 40px;
+        margin-bottom: 30px;
+
+        &.left {
+            left: 0;
+            text-align: right;
+            padding-right: 60px;
+
+            .our-story__timeline-content {
+                &::after {
+                    right: -8px;
+                    left: auto;
+                }
+            }
+        }
+
+        &.right {
+            left: 50%;
+            text-align: left;
+            padding-left: 60px;
+
+            .our-story__timeline-content {
+                &::after {
+                    left: -8px;
+                }
+            }
+        }
+
+        @media (max-width: $breakpoint-md) {
+            width: 100%;
+            left: 0 !important;
+            text-align: left !important;
+            padding-left: 80px !important;
+            padding-right: 20px !important;
+
+            .our-story__timeline-content::after {
+                left: -8px !important;
+                right: auto !important;
+            }
+        }
+    }
+
+    &__timeline-content {
+        @include card-style;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 16px;
+            height: 16px;
+            background: $color-gold;
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba($color-brown, 0.2);
+        }
+    }
+
+    &__timeline-icon {
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    &__timeline-year {
+        font-family: $font-sans;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: $color-sage;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    &__timeline-heading {
+        @include heading-serif;
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+
+    &__timeline-text {
+        @include body-text;
+        font-size: 0.95rem;
+        color: $color-brown-light;
+    }
+
+    // Quote Section
+    &__quote {
+        @include section-padding;
+        background: $color-sage;
+    }
+
+    &__quote-container {
+        @include container;
+        max-width: 800px;
+        text-align: center;
+
+        blockquote {
+            font-family: $font-serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            color: white;
+            line-height: 1.6;
+            margin-bottom: 20px;
+
+            @media (max-width: $breakpoint-sm) {
+                font-size: 1.3rem;
+            }
+        }
+
+        cite {
+            font-family: $font-sans;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: normal;
+        }
+    }
+}

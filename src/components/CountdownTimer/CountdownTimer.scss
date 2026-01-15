@@ -1,0 +1,69 @@
+@import '../../styles/variables';
+
+.countdown {
+  padding: 30px 0;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+
+    @media (max-width: $breakpoint-sm) {
+      gap: 10px;
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    padding: 20px 25px;
+    min-width: 90px;
+    box-shadow: 0 4px 15px rgba($color-brown, 0.1);
+
+    @media (max-width: $breakpoint-sm) {
+      padding: 15px 18px;
+      min-width: 70px;
+    }
+  }
+
+  &__number {
+    font-family: $font-serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: $color-sage-dark;
+    line-height: 1;
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 1.8rem;
+    }
+  }
+
+  &__label {
+    font-family: $font-sans;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $color-brown-light;
+    margin-top: 8px;
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 0.65rem;
+    }
+  }
+
+  &__separator {
+    font-family: $font-serif;
+    font-size: 2rem;
+    color: $color-gold;
+    font-weight: 300;
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 1.5rem;
+    }
+  }
+}
