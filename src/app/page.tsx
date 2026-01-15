@@ -6,7 +6,7 @@ import Link from 'next/link';
 import './page.scss';
 
 // UPDATE THIS DATE to your actual wedding date!
-const WEDDING_DATE = '2026-03-15T14:00:00';
+const WEDDING_DATE = '2026-06-21T14:00:00';
 
 export default function Home() {
     return (
@@ -22,7 +22,7 @@ export default function Home() {
                     <div className="hero__divider">
                         <span>❀</span>
                     </div>
-                    <p className="hero__date">March 15, 2026</p>
+                    <p className="hero__date">June 21, 2026</p>
                     <p className="hero__venue">Manila, Philippines</p>
                     
                     <CountdownTimer targetDate={WEDDING_DATE} />

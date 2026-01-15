@@ -16,7 +16,7 @@ export default function EventDetails() {
                         <span>❀</span>
                     </div>
                     <p className="event-details__subtitle">
-                        March 15, 2026 • Manila, Philippines
+                        June 21, 2026 • Manila, Philippines
                     </p>
                 </div>
             </section>
