@@ -59,6 +59,8 @@
     gap: 16px;
     flex-wrap: wrap;
     margin-bottom: 60px;
+    position: relative;
+    z-index: 999;
   }
   &__filter {
     font-family: $font-body;

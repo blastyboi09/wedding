@@ -12,31 +12,79 @@
   }
 }
 
+// ============================================
+// FALLING FLOWERS EFFECT
+// ============================================
+
+.hero__flowers {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.falling-flower {
+  position: absolute;
+  top: -60px;
+  animation: fallingFlower linear forwards;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@keyframes fallingFlower {
+  0% {
+    transform: translateY(0) rotate(0deg) translateX(0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.8;
+  }
+  20% {
+    transform: translateY(20vh) rotate(45deg) translateX(30px);
+  }
+  40% {
+    transform: translateY(40vh) rotate(90deg) translateX(-20px);
+  }
+  60% {
+    transform: translateY(60vh) rotate(180deg) translateX(40px);
+  }
+  80% {
+    transform: translateY(80vh) rotate(270deg) translateX(-30px);
+  }
+  95% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(105vh) rotate(360deg) translateX(20px);
+    opacity: 0;
+  }
+}
+
+// ============================================
 // Hero Section
+// ============================================
+
 .hero {
   min-height: 100vh;
   position: relative;
+  z-index: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #2C3E50 0%, #3498db 50%, #8E44AD 100%);
-
-  &__parallax {
-    position: absolute;
-    top: -10%;
-    left: 0;
-    right: 0;
-    bottom: -10%;
-    z-index: 0;
-  }
+  background: linear-gradient(135deg, #f3c2ff 0%, #a7e6ff 50%, #fffd9e 100%);
 
   &__bg-pattern {
     width: 100%;
     height: 100%;
-    background: 
-      radial-gradient(circle at 20% 80%, rgba($color-accent, 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba($color-sage, 0.2) 0%, transparent 50%);
+    background:
+            radial-gradient(circle at 20% 80%, rgba($color-accent, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba($color-sage, 0.2) 0%, transparent 50%);
   }
 
   &__overlay {
@@ -48,7 +96,7 @@
 
   &__content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     text-align: center;
     padding: 0 24px;
     max-width: 900px;
@@ -185,6 +233,8 @@
     border-radius: 50px;
     transition: all $transition-base;
     cursor: pointer;
+    position: relative;
+    z-index: 2;
 
     &--primary {
       background: white;
@@ -220,7 +270,7 @@
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    z-index: 2;
+    z-index: 3;
     animation: fadeInUp 0.8s ease 1s forwards;
     opacity: 0;
 
