@@ -1,9 +1,18 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import './Navbar.scss';
+
+const navLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/our-story', label: 'Our Story' },
+    { href: '/event-details', label: 'Details' },
+    { href: '/gallery', label: 'Gallery' },
+    { href: '/faq', label: 'FAQ' },
+    { href: '/recommended-gifts', label: 'Gifts' },
+];
 
 const Navbar: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -17,30 +26,17 @@ const Navbar: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        setIsMobileMenuOpen(false);
-    }, [pathname]);
-
-    useEffect(() => {
         document.body.style.overflow = isMobileMenuOpen ? 'hidden' : 'auto';
     }, [isMobileMenuOpen]);
-
-    const navLinks = [
-        { href: '/', label: 'Home' },
-        { href: '/our-story', label: 'Our Story' },
-        { href: '/event-details', label: 'Details' },
-        { href: '/gallery', label: 'Gallery' },
-        { href: '/faq', label: 'FAQ' },
-        { href: '/recommended-gifts', label: 'Recommended Gifts' },
-    ];
 
     return (
         <>
             <nav className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`}>
                 <div className="navbar__container">
                     <Link href="/" className="navbar__logo">
-                        <span className="navbar__logo-text">J</span>
-                        <span className="navbar__logo-ampersand">&</span>
-                        <span className="navbar__logo-text">J</span>
+                        <span className="navbar__logo-text">JD</span>
+                        <span className="navbar__logo-ampersand">&amp;</span>
+                        <span className="navbar__logo-text">Joi</span>
                     </Link>
 
                     <ul className="navbar__menu">
@@ -53,33 +49,36 @@ const Navbar: React.FC = () => {
                         ))}
                     </ul>
 
-                    <Link href="/rsvp" className="navbar__rsvp">RSVP</Link>
-
                     <button
                         className={`navbar__hamburger ${isMobileMenuOpen ? 'active' : ''}`}
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        aria-label="Toggle menu"
+                        aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+                        aria-expanded={isMobileMenuOpen}
                     >
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                        <span />
+                        <span />
+                        <span />
                     </button>
                 </div>
             </nav>
 
             <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
                 <div className="mobile-menu__content">
-                    <div className="mobile-menu__logo">JD & Joi</div>
+                    <div className="mobile-menu__logo">JD &amp; Joi</div>
+                    <p className="mobile-menu__date">June 21, 2026</p>
                     <nav className="mobile-menu__nav">
                         {navLinks.map((link) => (
-                            <Link key={link.href} href={link.href} className="mobile-menu__link">
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className={`mobile-menu__link ${pathname === link.href ? 'active' : ''}`}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
                                 {link.label}
                             </Link>
                         ))}
-                        <Link href="/rsvp" className="mobile-menu__rsvp">RSVP Now</Link>
                     </nav>
                     <div className="mobile-menu__footer">
-                        <p>June 21, 2026</p>
                         <p>Alfonso, Cavite</p>
                     </div>
                 </div>

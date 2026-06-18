@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import './CountdownTimer.scss';
 
 interface CountdownTimerProps {
@@ -9,35 +9,32 @@ interface CountdownTimerProps {
 }
 
 const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate, variant = 'light' }) => {
-    const [mounted, setMounted] = useState(false);
-    const [days, setDays] = useState(0);
-    const [hours, setHours] = useState(0);
-    const [minutes, setMinutes] = useState(0);
-    const [seconds, setSeconds] = useState(0);
+    const calculateTime = useCallback(() => {
+        const diff = new Date(targetDate).getTime() - Date.now();
+        if (diff <= 0) {
+            return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+        }
 
-    useEffect(() => {
-        setMounted(true);
-        
-        const calculateTime = () => {
-            const diff = new Date(targetDate).getTime() - Date.now();
-            if (diff > 0) {
-                setDays(Math.floor(diff / (1000 * 60 * 60 * 24)));
-                setHours(Math.floor((diff / (1000 * 60 * 60)) % 24));
-                setMinutes(Math.floor((diff / (1000 * 60)) % 60));
-                setSeconds(Math.floor((diff / 1000) % 60));
-            }
+        return {
+            days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+            minutes: Math.floor((diff / (1000 * 60)) % 60),
+            seconds: Math.floor((diff / 1000) % 60),
         };
-
-        calculateTime();
-        const timer = setInterval(calculateTime, 1000);
-        return () => clearInterval(timer);
     }, [targetDate]);
 
+    const [timeLeft, setTimeLeft] = useState(calculateTime);
+
+    useEffect(() => {
+        const timer = setInterval(() => setTimeLeft(calculateTime()), 1000);
+        return () => clearInterval(timer);
+    }, [calculateTime]);
+
     const units = [
-        { value: days, label: 'Days' },
-        { value: hours, label: 'Hours' },
-        { value: minutes, label: 'Minutes' },
-        { value: seconds, label: 'Seconds' },
+        { value: timeLeft.days, label: 'Days' },
+        { value: timeLeft.hours, label: 'Hours' },
+        { value: timeLeft.minutes, label: 'Minutes' },
+        { value: timeLeft.seconds, label: 'Seconds' },
     ];
 
     return (
@@ -47,7 +44,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate, variant = '
                     <React.Fragment key={unit.label}>
                         <div className="countdown__item">
                             <div className="countdown__number">
-                                <span>{mounted ? String(unit.value).padStart(2, '0') : '--'}</span>
+                                <span>{String(unit.value).padStart(2, '0')}</span>
                             </div>
                             <span className="countdown__label">{unit.label}</span>
                         </div>

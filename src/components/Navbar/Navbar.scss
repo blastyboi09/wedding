@@ -6,26 +6,15 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 24px 0;
+  padding: 20px 0;
+  background: rgba($color-bg, 0.86);
+  border-bottom: 1px solid rgba($color-dark, 0.08);
+  backdrop-filter: blur(16px);
   transition: all $transition-smooth;
 
   &--scrolled {
-    padding: 16px 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
-
-    .navbar__logo { color: $color-dark; }
-    .navbar__link {
-      color: $color-dark;
-      &:hover, &.active { color: $color-dark; }
-    }
-    .navbar__rsvp {
-      background: $color-primary;
-      color: white;
-      border-color: $color-primary;
-    }
-    .navbar__hamburger span { background: $color-dark; }
+    padding: 12px 0;
+    background: rgba($color-bg, 0.96);
   }
 
   &__container {
@@ -34,186 +23,181 @@
   }
 
   &__logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: white;
-    transition: color $transition-base;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    color: $color-dark;
   }
 
   &__logo-text {
     font-family: $font-display;
-    font-size: 2rem;
-    font-weight: 500;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
   }
 
   &__logo-ampersand {
-    font-family: $font-script;
-    font-size: 2.2rem;
-    color: $color-accent;
+    font-family: $font-display;
+    font-size: 1.2rem;
+    color: $color-primary-dark;
+    font-style: italic;
   }
 
   &__menu {
     display: flex;
+    align-items: center;
+    gap: clamp(18px, 3vw, 34px);
     list-style: none;
-    gap: 48px;
 
-    @media (max-width: $breakpoint-lg) { display: none; }
+    @media (max-width: $breakpoint-lg) {
+      display: none;
+    }
   }
 
   &__link {
-    font-family: $font-body;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
     position: relative;
-    padding: 8px 0;
+    display: inline-flex;
+    padding: 7px 0;
+    color: $color-dark-soft;
+    font-family: $font-label;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     transition: color $transition-base;
 
     &::after {
       content: '';
       position: absolute;
-      bottom: 0;
       left: 0;
-      width: 0;
-      height: 2px;
-      background: $color-dark;
-      transition: width $transition-base;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      transform: scaleX(0);
+      transform-origin: center;
+      background: $color-primary-dark;
+      transition: transform $transition-base;
     }
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       color: $color-dark;
-      &::after { width: 100%; }
+
+      &::after {
+        transform: scaleX(1);
+      }
     }
-  }
-
-  &__rsvp {
-    font-family: $font-body;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    padding: 12px 28px;
-    border: 2px solid white;
-    border-radius: 50px;
-    transition: all $transition-base;
-
-    &:hover {
-      background: white;
-      color: $color-dark;
-    }
-
-    @media (max-width: $breakpoint-lg) { display: none; }
   }
 
   &__hamburger {
     display: none;
-    flex-direction: column;
-    justify-content: center;
+    width: 44px;
+    height: 44px;
     align-items: center;
-    width: 48px;
-    height: 48px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid rgba($color-dark, 0.2);
     background: transparent;
-    border: none;
     cursor: pointer;
-    gap: 6px;
-    z-index: 1001;
 
-    @media (max-width: $breakpoint-lg) { display: flex; }
+    @media (max-width: $breakpoint-lg) {
+      display: flex;
+    }
 
     span {
-      display: block;
-      width: 28px;
-      height: 2px;
-      background: white;
-      border-radius: 2px;
+      width: 18px;
+      height: 1px;
+      background: $color-dark;
       transition: all $transition-base;
     }
 
     &.active span {
-      background: $color-dark;
-      &:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+      &:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
       &:nth-child(2) { opacity: 0; }
-      &:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
+      &:nth-child(3) { transform: rotate(-45deg) translate(5px, -4px); }
     }
   }
 }
 
 .mobile-menu {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: $color-bg;
+  inset: 0;
   z-index: 999;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
+  background: linear-gradient(135deg, $color-blush-light, $color-blue-light);
   transition: all $transition-smooth;
 
   &.open {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
 
   &__content {
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 100px 24px 60px;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 12px;
+    padding: 100px 24px 34px;
   }
 
   &__logo {
-    font-family: $font-script;
-    font-size: 3rem;
-    color: $color-primary;
-    margin-bottom: 48px;
+    color: $color-dark;
+    font-family: $font-display;
+    font-size: 2.8rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-align: center;
+  }
+
+  &__date {
+    text-align: center;
+    color: $color-blue-dark;
+    font-family: $font-label;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
   }
 
   &__nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
+    width: min(100%, 420px);
+    margin: 0 auto;
+    display: grid;
+    align-content: center;
+    gap: 0;
+    border-top: 1px solid rgba($color-dark, 0.18);
   }
 
   &__link {
-    font-family: $font-display;
-    font-size: 1.8rem;
+    min-height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba($color-dark, 0.18);
     color: $color-dark;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    transition: color $transition-base;
+    font-family: $font-display;
+    font-size: 1.6rem;
+    font-weight: 500;
 
-    &:hover { color: $color-primary; }
-  }
-
-  &__rsvp {
-    margin-top: 32px;
-    @include button-primary;
+    &.active {
+      color: $color-primary-dark;
+      font-style: italic;
+    }
   }
 
   &__footer {
-    position: absolute;
-    bottom: 40px;
     text-align: center;
 
     p {
-      font-family: $font-body;
-      font-size: 0.85rem;
       color: $color-gray;
-      letter-spacing: 2px;
+      font-family: $font-label;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-
-      &:first-child {
-        font-weight: 600;
-        color: $color-primary;
-      }
     }
   }
 }
