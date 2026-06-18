@@ -6,6 +6,40 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import './page.scss';
 
+const quickActions = [
+    {
+        href: '/event-details#seat-finder',
+        label: 'Find Your Table',
+        note: 'Search your name',
+        tone: 'blue',
+    },
+    {
+        href: '/event-details#directions',
+        label: 'Directions',
+        note: 'Google Maps and Waze',
+        tone: 'pink',
+    },
+    {
+        href: '/event-details',
+        label: 'Wedding Details',
+        note: 'Time, venue, dress code',
+        tone: 'cream',
+    },
+    {
+        href: '/program-flow.pdf',
+        label: 'PDF Download',
+        note: 'Program flow guide',
+        tone: 'blue',
+        download: true,
+    },
+    {
+        href: '/gallery#share-moments',
+        label: 'Share Moments',
+        note: 'Photos and videos',
+        tone: 'pink',
+    },
+];
+
 export default function Home() {
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -40,23 +74,28 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="quick-details">
-                <div className="quick-details__container">
-                    <Link href="/event-details" className="quick-details__item reveal">
-                        <span>Ceremony</span>
-                        <strong>3:00 PM</strong>
-                        <small>Garden Area</small>
-                    </Link>
-                    <Link href="/event-details" className="quick-details__item reveal">
-                        <span>Reception</span>
-                        <strong>5:00 PM</strong>
-                        <small>Reception Area</small>
-                    </Link>
-                    <Link href="/event-details" className="quick-details__item reveal">
-                        <span>Place</span>
-                        <strong>Alfonso, Cavite</strong>
-                        <small>Esperanza Ilaya</small>
-                    </Link>
+            <section className="quick-actions" aria-label="Wedding quick links">
+                <div className="quick-actions__container">
+                    {quickActions.map((action, index) => {
+                        const content = (
+                            <>
+                                <small>{String(index + 1).padStart(2, '0')}</small>
+                                <span>{action.label}</span>
+                                <strong>{action.note}</strong>
+                            </>
+                        );
+                        const className = `quick-actions__item quick-actions__item--${action.tone} reveal`;
+
+                        return action.download ? (
+                            <a key={action.label} href={action.href} download className={className}>
+                                {content}
+                            </a>
+                        ) : (
+                            <Link key={action.label} href={action.href} className={className}>
+                                {content}
+                            </Link>
+                        );
+                    })}
                 </div>
             </section>
 

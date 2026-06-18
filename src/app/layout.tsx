@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import FallingFlowers from "@/components/FallingFlowers";
 
 export const metadata: Metadata = {
   title: "JD & Joi Wedding | June 21, 2026",
@@ -10,6 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
       <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
+      <FallingFlowers />
       {children}
       </body>
       </html>

@@ -19,9 +19,19 @@ const photos = [
     { id: 9, category: 'Events', title: 'Sparkle' },
 ];
 
+const formatFileSize = (size: number) => {
+    if (size < 1024 * 1024) {
+        return `${Math.max(1, Math.round(size / 1024))} KB`;
+    }
+
+    return `${(size / (1024 * 1024)).toFixed(1)} MB`;
+};
+
 export default function Gallery() {
     const [activeCategory, setActiveCategory] = useState('All');
     const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null);
+    const [momentFiles, setMomentFiles] = useState<File[]>([]);
+    const [shareStatus, setShareStatus] = useState('');
 
     const filteredPhotos = activeCategory === 'All' ? photos : photos.filter((photo) => photo.category === activeCategory);
     const selected = photos.find((photo) => photo.id === selectedPhoto);
@@ -32,6 +42,38 @@ export default function Gallery() {
             document.body.style.overflow = 'auto';
         };
     }, [selectedPhoto]);
+
+    const handleMomentFiles = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setMomentFiles(Array.from(event.target.files ?? []));
+        setShareStatus('');
+    };
+
+    const handleShareMoments = async () => {
+        if (!momentFiles.length) {
+            setShareStatus('Choose photos or videos first.');
+            return;
+        }
+
+        const shareData: ShareData = {
+            title: 'JD & Joi Wedding Moments',
+            text: 'Sharing moments from JD and Joi wedding celebration.',
+            files: momentFiles,
+        };
+
+        if (navigator.share && navigator.canShare?.(shareData)) {
+            try {
+                await navigator.share(shareData);
+                setShareStatus('Moments ready to send.');
+            } catch (error) {
+                if (!(error instanceof DOMException && error.name === 'AbortError')) {
+                    setShareStatus('Sharing was not completed.');
+                }
+            }
+            return;
+        }
+
+        setShareStatus('Media sharing is available from supported mobile browsers.');
+    };
 
     return (
         <main className="gallery">
@@ -73,6 +115,48 @@ export default function Gallery() {
                             </button>
                         ))}
                     </div>
+
+                    <section id="share-moments" className="gallery__share">
+                        <div className="gallery__share-copy">
+                            <span>Wedding Day Moments</span>
+                            <h2>Share Your Photos &amp; Videos</h2>
+                            <p>Send the little moments, candid smiles, and dance floor clips from the celebration.</p>
+                        </div>
+
+                        <div className="gallery__share-panel">
+                            <div className="gallery__share-actions">
+                                <label htmlFor="moment-upload">Choose Media</label>
+                                <input
+                                    id="moment-upload"
+                                    type="file"
+                                    accept="image/*,video/*"
+                                    multiple
+                                    onChange={handleMomentFiles}
+                                />
+                                <button type="button" onClick={handleShareMoments} disabled={!momentFiles.length}>
+                                    Share Selected
+                                </button>
+                            </div>
+
+                            <div className="gallery__share-list" aria-live="polite">
+                                {momentFiles.length ? (
+                                    momentFiles.slice(0, 6).map((file) => (
+                                        <p key={`${file.name}-${file.lastModified}`}>
+                                            <span>{file.name}</span>
+                                            <small>{formatFileSize(file.size)}</small>
+                                        </p>
+                                    ))
+                                ) : (
+                                    <p>
+                                        <span>No moments selected yet</span>
+                                        <small>Photos and videos</small>
+                                    </p>
+                                )}
+                            </div>
+
+                            {shareStatus && <p className="gallery__share-status">{shareStatus}</p>}
+                        </div>
+                    </section>
 
                     <div className="gallery__note">
                         <p>More photos coming soon after the wedding.</p>
