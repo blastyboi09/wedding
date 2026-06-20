@@ -11,7 +11,7 @@ const GOOGLE_MAPS_URL = 'https://www.google.com/maps/dir/14.5522688,121.0482688/
 const WAZE_URL = 'https://ul.waze.com/ul?venue_id=79233165.792200580.3407736&overview=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location';
 
 const schedule = [
-    { time: '2:30 PM', event: 'Guests Arrive' },
+    { time: '2:00 PM', event: 'Guests Arrive' },
     { time: '3:00 PM', event: 'Wedding Ceremony' },
     { time: '4:00 PM', event: 'Cocktail Hour' },
     { time: '5:00 PM', event: 'Reception Begins' },
@@ -43,6 +43,31 @@ const getInitials = (value: string) =>
         .filter(Boolean)
         .map((part) => part[0])
         .join('');
+
+const getSeatSearchTexts = (value: string) => {
+    const variants = [normalizeSeatText(value)];
+    const commaIndex = value.indexOf(',');
+
+    if (commaIndex > -1) {
+        const surname = value.slice(0, commaIndex).trim();
+        const givenNames = value.slice(commaIndex + 1).trim();
+        const surnameText = normalizeSeatText(surname);
+        const givenNameParts = normalizeSeatText(givenNames).split(' ').filter(Boolean);
+
+        variants.push(normalizeSeatText(`${givenNames} ${surname}`));
+
+        if (surnameText && givenNameParts.length) {
+            variants.push(`${givenNameParts[0]} ${surnameText}`);
+
+            if (givenNameParts.length > 1) {
+                variants.push(`${givenNameParts[givenNameParts.length - 1]} ${surnameText}`);
+                variants.push(`${givenNameParts.map((part) => part[0]).join('')} ${surnameText}`);
+            }
+        }
+    }
+
+    return Array.from(new Set(variants.filter(Boolean)));
+};
 
 const getSeatLabel = (label: string) => {
     if (label.startsWith('Table ')) {
@@ -79,21 +104,25 @@ export default function EventDetails() {
             return [];
         }
 
+        const queryParts = query.split(' ').filter(Boolean);
+
         const collectMatches = (includeInitials: boolean) =>
             seatingTables.flatMap((table) =>
                 table.guests
                     .filter((guest) => {
-                        const guestName = normalizeSeatText(guest);
-                        const guestCompact = compactSeatText(guest);
-                        const guestInitials = getInitials(guest);
-                        const queryParts = query.split(' ').filter(Boolean);
+                        const guestSearchTexts = getSeatSearchTexts(guest);
 
-                        return (
-                            guestName.includes(query) ||
-                            guestCompact.includes(compactQuery) ||
-                            queryParts.every((part) => guestName.includes(part)) ||
-                            (includeInitials && guestInitials.includes(compactQuery))
-                        );
+                        return guestSearchTexts.some((guestName) => {
+                            const guestCompact = guestName.replace(/\s/g, '');
+                            const guestInitials = getInitials(guestName);
+
+                            return (
+                                guestName.includes(query) ||
+                                guestCompact.includes(compactQuery) ||
+                                queryParts.every((part) => guestName.includes(part)) ||
+                                (includeInitials && guestInitials.includes(compactQuery))
+                            );
+                        });
                     })
                     .map((guest) => ({ guest, tableId: table.id, tableLabel: table.label }))
             );
@@ -128,7 +157,7 @@ export default function EventDetails() {
                     <article className="details__event-card reveal">
                         <span className="details__event-number">I</span>
                         <p className="details__event-label">The Ceremony</p>
-                        <h2>Holy Matrimony</h2>
+                        <h2>Wedding Ceremony</h2>
                         <strong>3:00 PM</strong>
                         <p>Maple Events by Solange - Garden Area</p>
                         <small>Esperanza Ilaya, Alfonso, Cavite</small>

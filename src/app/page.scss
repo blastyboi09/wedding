@@ -225,8 +225,7 @@
       min-height: 126px;
       padding: 16px;
 
-      &:first-child,
-      &:last-child {
+      &:first-child {
         grid-column: 1 / -1;
         min-height: 112px;
       }

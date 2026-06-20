@@ -46,7 +46,7 @@ export const programFlowSections: ProgramFlowSection[] = [
             { time: '2:00 PM - 2:30 PM', activity: 'Arrival of officiating minister and guests' },
             { activity: 'Final touches: looks / flowers / symbols' },
             { activity: 'Preparation for the ceremony / distribution of flowers to full entourage' },
-            { time: '2:30 PM - 2:45 PM', activity: 'Start of queuing of the members of entourage' },
+            { time: '2:00 PM - 2:45 PM', activity: 'Start of queuing of the members of entourage' },
             { time: '2:45 PM - 3:00 PM', activity: 'Processional' },
             { activity: 'Entourage march song (repeat if necessary)' },
             { activity: 'Bridal walk song' },

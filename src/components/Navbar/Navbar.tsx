@@ -7,7 +7,7 @@ import './Navbar.scss';
 
 const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/our-story', label: 'Our Story' },
+    // { href: '/our-story', label: 'Our Story' },
     { href: '/event-details', label: 'Details' },
     { href: '/gallery', label: 'Gallery' },
     { href: '/faq', label: 'FAQ' },

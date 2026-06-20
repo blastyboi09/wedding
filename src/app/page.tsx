@@ -131,7 +131,7 @@ export default function Home() {
                         <article className="events__card reveal">
                             <span className="events__number">I</span>
                             <p className="events__label">The Ceremony</p>
-                            <h3>Holy Matrimony</h3>
+                            <h3>Wedding Ceremony</h3>
                             <strong>3:00 PM</strong>
                             <p>Maple Events by Solange - Garden Area</p>
                         </article>
